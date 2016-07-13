@@ -42,6 +42,7 @@
 function Set-Shortcut
 {
     [CmdletBinding()]
+    [OutputType([boolean])]
     Param (
         [Parameter(Mandatory=$true)]
         [ValidateScript( {  if ([string]::IsNullOrEmpty($_)) {

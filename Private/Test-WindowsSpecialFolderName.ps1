@@ -38,6 +38,7 @@
 function Test-WindowsSpecialFolderName
 {
     [CmdletBinding()]
+    [OutputType([boolean])]
     Param (
         [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
