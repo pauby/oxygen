@@ -27,7 +27,8 @@ Set-StrictMode -Version Latest
 
 $publicFunctions = @(
     'Get-WindowsSpecialFolderPath',
-    'Set-Shortcut'
+    'Set-Shortcut',
+    'Test-ObjectProperty'
 )
 
 $privateFunctions = @(
