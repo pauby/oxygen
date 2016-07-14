@@ -17,15 +17,15 @@
 
 <#
 .SYNOPSIS
-    Test-PrinterPort
+    Tests if the specified printer port exists on the computer.
 .DESCRIPTION
-    Tests whether the printer port specified exists on the computer.
+    Tests if the specified printer port exists on the computer.
 .NOTES
 	Author		: Paul Broadwith (paul@pauby.com)
 	History		: 1.0.0 - 14/07/16 - Initial version
 .LINK
     https://www.github.com/pauby/Oxygen
-.PARAMETER PortName
+.PARAMETER Name
     Specifies the name of the port to test.
 .OUTPUTS
 	Output is a [bool] and is true if the printer port exists and false otherwise.
@@ -40,13 +40,8 @@ function Test-PrinterPort
     Param (
         [Parameter(Mandatory=$true)]
         [string]
-        $PortName
+        $Name
     )
 
-    if ([bool](Get-PrinterPort | Where { $_.Name -eq $PortName } )) {
-        $true
-    }
-    else {
-        $false
-    }
+    [bool](Get-PrinterPort | Where { $_.Name -eq $Name } )
 }

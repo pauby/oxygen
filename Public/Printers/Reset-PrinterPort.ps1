@@ -32,16 +32,16 @@
 .PARAMETER PrinterHostAddress
     Specifies the IP address of the printer port to be added.
 .OUTPUTS
-	Output is of type [bool] and is true if the port was reset and false otherwise 
+	Output is of type [bool] and is true if the port was reset and false otherwise
 .EXAMPLE
     Reset-PrinterPort -PortName "HPLJ" -PrinterHostAddress "192.168.10.100"
 
-    Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100 
+    Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100
 #>
 function Reset-PrinterPort
 {
-    [CmdletBinding()]
-    Param 
+    [OutputType([bool])]
+    Param
     (
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -55,18 +55,18 @@ function Reset-PrinterPort
     )
 
     # check we have a port and remove it
-    if (Test-PrinterPort -PortName $PortName) {
+    if (Test-PrinterPort -Name $PortName) {
         Remove-PrinterPort -Name $PortName -ErrorAction SilentlyContinue
-        
+
         # check the port is gone
-        if (Test-PrinterPort -PortName $PortName) {
-            $false
+        if (Test-PrinterPort -Name $PortName) {
+            return $false
         }
     }
 
     # add the port and check it's now been added
     Add-PrinterPort -Name $PortName -PrinterHostAddress $PrinterHostAddress -ErrorAction SilentlyContinue
-    if (Test-PrinterPort -PortName $PortName) {
+    if (Test-PrinterPort -Name $PortName) {
         $true
     }
     else {
