@@ -19,32 +19,16 @@
 .NOTES
     File Name	: Oxygen.psm1
     Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 13/07/16 - Initial version
+	History		: 0.1 - 13/07/16 - Initial version
+                  0.2 - 14/07/16 - Modified to recurse through module folders and dot source *.ps1 files but exclduing .Tests.ps1 
 #>
 
 #Requires -Version 4
 Set-StrictMode -Version Latest
 
-$publicFunctions = @(
-    'Get-WindowsSpecialFolderPath',
-    'Set-Shortcut',
-    'Test-ObjectProperty'
-)
-
-$privateFunctions = @(
-    "Test-WindowsSpecialFolderName"
-)
-
-foreach ($function in $publicFunctions)
-{
-    Write-Verbose "Importing script file Public\$function.ps1"
-    . (Join-Path $PSScriptRoot "Public\$function.ps1")
+$functions = get-childitem *.ps1 -recurse -exclude *.tests.ps1
+foreach ($function in $functions) {
+    . $function
 }
 
-foreach ($function in $privateFunctions)
-{
-    Write-Verbose "Importing script file Private\$function.ps1"
-    . (Join-Path $PSScriptRoot "Private\$function.ps1")
-}
-
-Export-ModuleMember -Function $publicFunctions
+Export-ModuleMember -Function *
