@@ -45,5 +45,5 @@ function Test-Printer
         $Name
     )
 
-    ([bool](Get-Printer | Where { $_.Name -eq $Name } )
+    ([bool](Get-Printer | Where { $_.Name -eq $Name } ))
 }
