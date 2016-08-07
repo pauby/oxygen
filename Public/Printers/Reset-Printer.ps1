@@ -77,15 +77,15 @@ function Reset-Printer
     }
 
     # check each of these suceeds.
-    if (-not Reset-PrinterPort -PortName $PortName -PrinterHostAddress $PrinterHostAddress) {
+    if (-not (Reset-PrinterPort -PortName $PortName -PrinterHostAddress $PrinterHostAddress)) {
         return $false
     }
 
-    if (-not Reset-PrinterDriver -DriverName $DriverName) {
+    if (-not (Reset-PrinterDriver -DriverName $DriverName)) {
         return $false
     }
 
-    if (-not Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName) {
+    if (-not (Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName)) {
         return $false
     }
 
