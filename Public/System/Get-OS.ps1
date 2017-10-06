@@ -1,4 +1,4 @@
-function Get-OxyOS {
+function Get-OS {
 
     Param (
         [Parameter(ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]

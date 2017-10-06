@@ -1,4 +1,4 @@
-function Test-OxyEmptyPassword
+function Test-EmptyPassword
 {
     Param 
     (

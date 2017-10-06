@@ -1,4 +1,4 @@
-Function Remove-OxyPageFile
+Function Remove-PageFile
 {
     $pg = gwmi win32_pagefileusage
     if ($pg) {

@@ -1,4 +1,4 @@
-Function Disable-OxyPageFile
+Function Disable-PageFile
 {
     $cs = gwmi Win32_ComputerSystem
     if ($cs.AutomaticManagedPagefile) 
