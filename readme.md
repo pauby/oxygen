@@ -18,3 +18,8 @@ PowerShell version 4 and .NET framework 4.5 is required.
 
 These will be updated and (available](release.md).
 
+## Todo
+
+[ ] Add documentation for each function;
+[ ] Pester tests for each function (as needed);
+[ ] Create module build;
