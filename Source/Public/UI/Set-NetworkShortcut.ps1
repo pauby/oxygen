@@ -2,11 +2,11 @@
 function Set-NetworkShortcut {
     [CmdletBinding()]
     Param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$Destination,
 
@@ -26,7 +26,7 @@ function Set-NetworkShortcut {
     }
 
     # create the folder
-    $newLinkFolder = New-Item -Name $Mame -Path $shortcutFullPath -Type Directory
+    $newLinkFolder = New-Item -Name $Name -Path $shortcutFullPath -Type Directory
 
     # Create the ini file
     @"
