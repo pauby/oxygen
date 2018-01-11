@@ -20,27 +20,29 @@ Set-StrictMode -Version Latest
 
 # Project variables
 $BuildOptions = @{
-    ModuleName          = 'Oxygen'
-    PSGalleryApiKey     = $env:PSGALLERY_API_KEY
-    BuildPath           = "$BuildRoot\build"
-    SourcePath          = "$BuildRoot\source"
-    TestsPath           = "$BuildRoot\tests"
-    ModuleLoadPath      = "$($env:mysyncroot)\Coding\PowerShell\Modules"
+    ModuleName              = 'Oxygen'
+    PSGalleryApiKey         = $env:PSGALLERY_API_KEY
+    BuildPath               = "$BuildRoot\build"
+    SourcePath              = "$BuildRoot\source"
+    TestsPath               = "$BuildRoot\tests"
+    ModuleLoadPath          = "$($env:mysyncroot)\Coding\PowerShell\Modules"
 }
 
 $ManifestOptions = @{
-    RootModule          = "$($BuildOptions.ModuleName).psm1"
-    Author              = 'Paul Broadwith'
-    CompanyName         = 'Paul Broadwith'
-    Copyright           = "(c) 2017-$((Get-Date).Year) Paul Broadwith"
-    Description         = 'Windows Management'
-    PowerShellVersion   = '3.0'
-    FormatsToProcess    = ''
-#    FunctionsToExport   = (Get-ChildItem (Join-Path $BuildOptions.SourcePath -ChildPath "public\*.ps1") -Recurse).BaseName
-    Tags                = 'Windows', 'GroupPolicy', 'Management', 'Automation', 'Configuration'
-    ProjectUri          = "https://github.com/pauby/$($BuildOptions.Modulename)"
-    LicenseUri          = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/LICENSE"
-    ReleaseNotes        = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/CHANGELOG.md"
+    RootModule              = "$($BuildOptions.ModuleName).psm1"
+    Author                  = 'Paul Broadwith'
+    CompanyName             = 'Paul Broadwith'
+    Copyright               = "(c) 2017-$((Get-Date).Year) Paul Broadwith"
+    Description             = 'Windows Management'
+    PowerShellVersion       = '4.0'
+    DotNetFrameworkVersion  = '4.5'
+    DefaultCommandPrefix    = 'O2'
+    FormatsToProcess        = ''
+#    FunctionsToExport      = (Get-ChildItem (Join-Path $BuildOptions.SourcePath -ChildPath "public\*.ps1") -Recurse).BaseName
+    Tags                    = 'Windows', 'GroupPolicy', 'Management', 'Automation', 'Configuration'
+    ProjectUri              = "https://github.com/pauby/$($BuildOptions.Modulename)"
+    LicenseUri              = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/LICENSE"
+    ReleaseNotes            = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/CHANGELOG.md"
 }
 
 . .\build.ps1
