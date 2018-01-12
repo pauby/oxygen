@@ -27,6 +27,6 @@ See [here](changelog.md).
 ### To Achieve Baseline
 
 * [ ] Rewrite functions adhering to [standards](https://github.com/PoshCode/PowerShellPracticeAndStyle "PowerShell Best Practices"), [approved verbs](https://msdn.microsoft.com/en-us/library/ms714428.aspx) and add error handling and output;
-* [ ] Add documentation for each function;
+* [ ] Add documentation for each function - help comments, helpmessage
 * [ ] Pester tests and PSScriptAnalyser rules (**to be decided**) for each function as appropriate;
 * [ ] Create module build;
