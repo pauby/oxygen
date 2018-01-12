@@ -18,6 +18,9 @@ param(
 # Ensure Invoke-Build works in the most strict mode.
 Set-StrictMode -Version Latest
 
+if (Test-Path .build.config.ps1) {
+    . .\.build.config.ps1
+}
 <#
 # Synopsis: Make the NuGet package.
 task NuGet Module, {
@@ -125,30 +128,27 @@ task Version {
 # Synopsis: Convert markdown files to HTML.
 # <http://johnmacfarlane.net/pandoc/>
 task Markdown {
-    exec { pandoc.exe --standalone --from=markdown_strict --output=$($BuildOptions.BuildPath)\README.html README.md }
-    exec { pandoc.exe --standalone --from=markdown_strict --output=$($BuildOptions.SourcePath)\CHANGELOG.html CHANGELOG.md }
+    exec { pandoc.exe --standalone --from=markdown_strict --metadata=title:Readme --output=$($BuildOptions.BuildPath)\README.html README.md }
+    exec { pandoc.exe --standalone --from=markdown_strict --metadat=title:Changelog --output=$($BuildOptions.BuildPath)\CHANGELOG.html CHANGELOG.md }
 }
 
 # Synopsis: Make the build folder.
-task Build CleanBuild, BuildManifest, BuildScriptModule {
+task Build CleanBuild, BuildManifest, BuildScriptModule, {
+    # create build folder
+    New-Item -Path $BuildOptions.BuildPath -ItemType Directory -Force | Out-Null
     # mirror the source folder
-    exec {$null = robocopy.exe $($BuildOptions.SourcePath) $($BuildOptions.BuildPath) /mir} (0..2)
+    #exec {$null = robocopy.exe $($BuildOptions.SourcePath) $($BuildOptions.BuildPath) /mir} (0..2)
 
     # copy files
- 
-        )
-    Copy-Item -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1") `
-        -Destination $BuildOptions.BuildPath
-    Copy-Item -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psm1") `
-        -Destination $BuildOptions.BuildPath
-    Copy-Item -Destination $BuildOptions.BuildPath -Path LICENSE
+    $BuildOptions.ModuleFiles | Copy-Item -Destination $BuildOptions.BuildPath -Recurse -Passthru | 
+        ForEach { Write-Verbose "Copied $($_.name) to build directory" }
 }, Markdown
 
 # Synopsis: Builds the module manifest
 task BuildManifest Version, BuildScriptModule, {
     # make manifest
     New-ModuleManifest @ManifestOptions `
-        -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1" `
+        -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1") `
         -ModuleVersion $Version
 }
 
@@ -167,9 +167,10 @@ task BuildScriptModule {
     $functions += Get-ChildItem (Join-Path -Path $BuildOptions.SourcePath -ChildPath "private\*.ps1") -Recurse -ErrorAction SilentlyContinue #.FullName) #| ForEach-Object { "private\$_" }
 
     Foreach ($function in $functions) {
+        # TODO: Currently it'
         Get-Content -Path $function | Add-Content -Path $modulePath
         "`n" | Add-Content -Path $modulePath
-        Write-Verbose "Adding $function to script module." 
+        Write-Verbose "Added $($function.name) to script module." 
     }
 
     if (Test-Path "$($BuildOptions.SourcePath)\ModuleFooter.txt") { 
@@ -194,6 +195,7 @@ task PushPSGallery CleanModule, Build, {
     }
 
     exec {$null = robocopy.exe $($BuildOptions.BuildPath) "$($BuildOptions.ModuleLoadPath)\$($BuildOptions.ModuleName)" /mir} (0..2)
+    Write-Verbose "Copied $($BuildOptions.BuildPath) to $($BuildOptions.ModuleLoadPath)\$($BuildOptions.ModuleName)"
 
     $PublishOptions = {
         Name            = $BuildOptions.ModuleName

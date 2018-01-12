@@ -26,12 +26,14 @@ $BuildOptions = @{
     SourcePath              = "$BuildRoot\source"
     TestsPath               = "$BuildRoot\tests"
     ModuleLoadPath          = "$($env:mysyncroot)\Coding\PowerShell\Modules"
-    ModuleFiles             = @((Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1"),
+}
+
+# make sure folders have a trailing backslash
+$BuildOptions.ModuleFiles   = @((Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1"),
                                 (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psm1"),
                                 'LICENSE',
                                 (Join-Path -Path $BuildOptions.SourcePath -ChildPath 'en-GB')
                                )
-}
 
 $ManifestOptions = @{
     RootModule              = "$($BuildOptions.ModuleName).psm1"
@@ -45,9 +47,8 @@ $ManifestOptions = @{
     FormatsToProcess        = ''
 #    FunctionsToExport      = (Get-ChildItem (Join-Path $BuildOptions.SourcePath -ChildPath "public\*.ps1") -Recurse).BaseName
     Tags                    = 'Windows', 'GroupPolicy', 'Management', 'Automation', 'Configuration'
+    #IconUri                 = ''
     ProjectUri              = "https://github.com/pauby/$($BuildOptions.Modulename)"
     LicenseUri              = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/LICENSE"
     ReleaseNotes            = "https://github.com/pauby/$($BuildOptions.Modulename)/blob/master/CHANGELOG.md"
 }
-
-. .\build.ps1
