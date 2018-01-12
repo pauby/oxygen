@@ -6,17 +6,17 @@ The initial idea for this module was to allow me to provide some of the configur
 
 > NOTE: The code in this module is not yet ready for prime time. It's currently a collection of code that either I've put together myself, code I've found or code I've been given. Where I've found or been given code, appropriate credit has been or will be given *where I can*. Some of the functions are nothing more than wrappers for registry changes or command line executables with appropriate switches or parameters. Some of the code has no error handling, appropriate output, comments, or adhere to any standards - see the [todo](#todo) for what is and will be done. If you use any of this code, make sure you understand what it does beforehand.
 
-# Current State
+## Installing Module
 
-Working towards baseline.
-
-## System Requirements
-
-PowerShell version 4 and .NET framework 4.5 is required.
+* The contents of the build directory can be installed into your module path;
 
 ## Versioning
 
 [Semantic versioning](http://semver.org/) will be used for x.y.z (major.minor.patch) levels;
+
+## System Requirements
+
+PowerShell version 4 and .NET framework 4.5 is required.
 
 ## Changelog
 
