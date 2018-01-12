@@ -26,6 +26,11 @@ $BuildOptions = @{
     SourcePath              = "$BuildRoot\source"
     TestsPath               = "$BuildRoot\tests"
     ModuleLoadPath          = "$($env:mysyncroot)\Coding\PowerShell\Modules"
+    ModuleFiles             = @((Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1"),
+                                (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psm1"),
+                                'LICENSE',
+                                (Join-Path -Path $BuildOptions.SourcePath -ChildPath 'en-GB')
+                               )
 }
 
 $ManifestOptions = @{

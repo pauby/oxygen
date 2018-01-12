@@ -130,18 +130,25 @@ task Markdown {
 }
 
 # Synopsis: Make the build folder.
-task Build CleanBuild, BuildManifest, {
+task Build CleanBuild, BuildManifest, BuildScriptModule {
     # mirror the source folder
     exec {$null = robocopy.exe $($BuildOptions.SourcePath) $($BuildOptions.BuildPath) /mir} (0..2)
 
     # copy files
+ 
+        )
+    Copy-Item -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1") `
+        -Destination $BuildOptions.BuildPath
+    Copy-Item -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psm1") `
+        -Destination $BuildOptions.BuildPath
     Copy-Item -Destination $BuildOptions.BuildPath -Path LICENSE
 }, Markdown
 
 # Synopsis: Builds the module manifest
 task BuildManifest Version, BuildScriptModule, {
     # make manifest
-    New-ModuleManifest -Path "$($BuildOptions.SourcePath)\$($BuildOptions.ModuleName).psd1" @ManifestOptions `
+    New-ModuleManifest @ManifestOptions `
+        -Path (Join-Path -Path $BuildOptions.SourcePath -ChildPath "$($BuildOptions.ModuleName).psd1" `
         -ModuleVersion $Version
 }
 
