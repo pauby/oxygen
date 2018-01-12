@@ -3,11 +3,13 @@ TOPIC
 
 SHORT DESCRIPTION
 
-    Short Description
+    Module containing functions used for automating, configuring or managing deployed Windows operating systems and or builds.
 
 LONG DESCRIPTION
 
-    Long Description
+    PowerShell module containing useful functions for automating, configuring or managing deployed Windows operating systems and or builds.
+
+    The initial idea for this module was to allow me to provide some of the configuration functionality that Group Policy provides in an Active Directory domain **without** Active Directory.
 
 POWERSHELL COMPATIBILITY
 
@@ -15,12 +17,8 @@ POWERSHELL COMPATIBILITY
 
 FEEDBACK
 
-        https://github.com/pauby/oxygen
+        https://github.com/pauby/oxygen/issues
 
 CONTRIBUTING
 
         https://github.com/pauby/oxygen
-
-SEE ALSO
-
-    What is related
