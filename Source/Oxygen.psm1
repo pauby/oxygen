@@ -14,6 +14,7 @@
 #>
 
 Set-StrictMode -Version Latest
+
 function Test-EmptyPassword
 {
     Param 
@@ -42,26 +43,8 @@ function Test-EmptyPassword
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
 function Test-IsAdmin
 {
-
 <#
 .SYNOPSIS
     Test for elevated privileges.
@@ -70,18 +53,16 @@ function Test-IsAdmin
 
     Returns true if the current session has elevated privileges and false otherwise.
 .NOTES
-	Author		: Andy Arismendi (http://stackoverflow.com/users/251123/andy-arismendi)
-	History		: 1.0 - 25/03/16 - Initial version
-.LINK
+    Code by Andy Arismendi (http://stackoverflow.com/users/251123/andy-arismendi)
     http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
-.INPUTS
-    None.
+.LINK
+    https://github.com/pauby/oxygen    
 .OUTPUTS
-	[bool]
+	[System.Boolean]
 .EXAMPLE
     Test-IsAdmin
 
-    Tests to see if the current session has elevated privleges.
+    Tests to see if the current session has elevated privileges.
 #>
 
     try
@@ -97,73 +78,47 @@ function Test-IsAdmin
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Reset-Printer
+{
 <#
 .SYNOPSIS
     Reset the specified printer on the local computer.
 .DESCRIPTION
     Reset the specified printer on the local computer.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
+	Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Name
-    Specifies the name of the printer to reset on the local computer.
-.PARAMETER DriverName
-    Specifies the name of the driver to reset on the local computer.
-.PARAMETER PortName
-    Specifies the name of the port to reset on the local computer.
-.PARAMETER PrinterHostAddress
-    Specifies the IP address of the printer to reset on the local computer.
+    https://www.github.com/pauby/oxygen
 .OUTPUTS
-	Output is of type [bool] and is true if the specified printer is reset successfully or false otherwise.
+    [System.Boolean]
 .EXAMPLE
     Reset-Printer -Name "HP LaserJet 4" -DriverName "HP LaserJet PS" -PortName "HPLJ4" -PrinterHostAddress "192.168.10.100"
 
     Resets the printer called "HP LaserJet 4", driver named "HP LaserJet PS",  port "HPLJ4" with IP address 192.168.10.100
 #>
 
-function Reset-Printer
-{
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     Param
     (
+        # Specifies the name of the printer to reset on the local computer.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $Name,
+        [string]$Name,
 
+        # Specifies the name of the driver to reset on the local computer.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $DriverName,
+        [string]$DriverName,
 
+        # Specifies the name of the port to reset on the local computer.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $PortName,
+        [string]$PortName,
 
+        # Specifies the IP address of the printer to reset on the local computer.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $PrinterHostAddress
+        [string]$PrinterHostAddress
     )
 
     if (Test-Printer -Name $Name ) {
@@ -176,15 +131,9 @@ function Reset-Printer
     }
 
     # check each of these suceeds.
-    if (-not (Reset-PrinterPort -PortName $PortName -PrinterHostAddress $PrinterHostAddress)) {
-        return $false
-    }
-
-    if (-not (Reset-PrinterDriver -DriverName $DriverName)) {
-        return $false
-    }
-
-    if (-not (Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName)) {
+    if ((-not (Reset-PrinterPort -PortName $PortName -PrinterHostAddress $PrinterHostAddress)) -or `
+            (-not (Reset-PrinterDriver -DriverName $DriverName)) -or
+            (-not (Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName)) ) {
         return $false
     }
 
@@ -192,52 +141,32 @@ function Reset-Printer
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Reset-PrinterDriver
+{
 <#
 .SYNOPSIS
     Reset the specified printer driver.
 .DESCRIPTION
     Reset the specified printer driver.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
     https://www.github.com/pauby/Oxygen
-.PARAMETER Name
-    Specifies the printer driver to reset.
 .OUTPUTS
-	Output is of type [bool] and is true if the driver was reset and false otherwise.
+	[System.Boolean]
 .EXAMPLE
     Reset-PrinterDriver -Name "HP LaserJet PS"
 
     Remove and add the printer driver called "HP LaserJet PS"
 #>
-
-function Reset-PrinterDriver
-{
+    [OutputType([System.Boolean])]
     [CmdletBinding()]
     Param
     (
+        # Specifies the printer driver to reset.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $Name
+        [string]$Name
     )
 
     if (Test-PrinterDriver -Name $Name)
@@ -265,23 +194,8 @@ function Reset-PrinterDriver
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Reset-PrinterPort
+{
 <#
 .SYNOPSIS
     Resets the printer port.
@@ -290,35 +204,28 @@ function Reset-PrinterDriver
 
     You do not need administrator privileges to use Reset-PrinterPort
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 01/04/16 - Initial version
+	Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER PortName
-    Specifies the Name of the port to be reset. You can get this name using Get-PrinterPort.
-.PARAMETER PrinterHostAddress
-    Specifies the IP address of the printer port to be added.
+    https://www.github.com/pauby/oxygen
 .OUTPUTS
-	Output is of type [bool] and is true if the port was reset and false otherwise
-.EXAMPLE
+	[System.Boolean]
+.EXAMPLE]
     Reset-PrinterPort -PortName "HPLJ" -PrinterHostAddress "192.168.10.100"
 
     Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100
 #>
-function Reset-PrinterPort
-{
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     Param
     (
+        # Specifies the Name of the port to be reset. You can get this name using Get-PrinterPort.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $PortName,
+        [string]$PortName,
 
+        # Specifies the IP address of the printer port to be added.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $PrinterHostAddress
+        [string]$PrinterHostAddress
     )
 
     # check we have a port and remove it
@@ -342,35 +249,17 @@ function Reset-PrinterPort
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Test-Printer
+{
 <#
 .SYNOPSIS
     Tests if the specified printer exists on the local computer.
 .DESCRIPTION
     Tests if the specified printer exists on the local computer.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Name
-    Specified printer name to test.
+    https://www.github.com/pauby/oxygen
 .OUTPUTS
 	Output is of type [bool] and is true if the printer name exists and false otherwise.
 .EXAMPLE
@@ -378,119 +267,69 @@ function Reset-PrinterPort
 
     Tests if the printer named "HP LaserJet 4" exists on the local computer.
 #>
-
-function Test-Printer
-{
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     Param (
+        # Specified printer name to test.
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $Name
+        [string]$Name
     )
 
-    ([bool](Get-Printer | Where { $_.Name -eq $Name } ))
+    ([bool](Get-Printer | Where-Object { $_.Name -eq $Name } ))
 }
 
-
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
-<#
-.SYNOPSIS
-    Short description.
-.DESCRIPTION
-    Long description.
-.NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
-.LINK
-    https://www.github.com/pauby
-.PARAMETER PARAMETER
-    Parameter description
-.INPUTS
-	Parameter and type [psobject]
-.OUTPUTS
-	Output and type [psobject]
-.EXAMPLE
-    $todoObj = $todoObj | Set-Todo -Priority "B"
-
-    Sets the priority of the $todoObj to "B" and outputs the modified todo.
-#>
 
 function Test-PrinterDriver
 {
-    [OutputType([bool])]
+<#
+.SYNOPSIS
+    Tests if the printer driver is present on the system.
+.DESCRIPTION
+    Tests if the printer driver is present on the system.
+.NOTES
+    Author : Paul Broadwith (https://github.com/pauby)
+.LINK
+    https://www.github.com/pauby/oxygen
+.EXAMPLE
+    Test-PrinterDriver "HP LaserJet 4"
+
+    This would test if the printer driver 'HP LaserJet 4' was installed.
+#>
+
+    [OutputType([System.Boolean])]
     Param (
+        # Printer driver name
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $Name
+        [string]$Name
     )
 
-    [bool](Get-PrinterDriver | Where { $_.Name -eq $Name } )
+    [bool](Get-PrinterDriver | Where-Object { $_.Name -eq $Name } )
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Test-PrinterDriverStore
+{
 <#
 .SYNOPSIS
     Test if the specified printer driver exists in the printer driver store.
 .DESCRIPTION
     Test if the specified printer driver exists in the printer driver store.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Name
-    Specifies the name of the printer driver to test.
-.OUTPUTS
-	Output is of type [bool] and is true if the dreiver exists in the driver store and false otherwise.
+    https://www.github.com/pauby/oxygen
 .EXAMPLE
     Test-PrinterDriverStore -Name "HP LaserJet PS"
 
-    Tests if the printer driver named "HP LaserJet PS" exists int he printer driver store.
+    Tests if the printer driver named "HP LaserJet PS" exists in the printer driver store.
 #>
-
-function Test-PrinterDriverStore
-{
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     Param
     (
+        # Specifies the name of the printer driver to test.
         [Parameter(Mandatory=$true)]
-        [string]
-        $Name
+        [string]$Name
     )
 
     # check if the driver is in the list already
@@ -514,52 +353,30 @@ function Test-PrinterDriverStore
  }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Test-PrinterPort
+{
 <#
 .SYNOPSIS
     Tests if the specified printer port exists on the computer.
 .DESCRIPTION
     Tests if the specified printer port exists on the computer.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Name
-    Specifies the name of the port to test.
-.OUTPUTS
-	Output is a [bool] and is true if the printer port exists and false otherwise.
+    https://www.github.com/pauby/oxygen
 .EXAMPLE
     Test-PrinterPort -PortName "TestPrinter"
 
     Tests whether the port named TestPrinter exisst on the computer.
 #>
-function Test-PrinterPort
-{
     [OutputType([bool])]
     Param (
+        # Specifies the name of the port to test.
         [Parameter(Mandatory=$true)]
-        [string]
-        $Name
+        [string]$Name
     )
 
-    [bool](Get-PrinterPort | Where { $_.Name -eq $Name } )
+    [bool](Get-PrinterPort | Where-Object { $_.Name -eq $Name } )
 }
 
 
@@ -575,17 +392,43 @@ function Import-Registry {
 
 
 function Add-Acl {
+<#
+.SYNOPSIS
+Set an ace on an object.
+
+.DESCRIPTION
+Set an ace, created using New-Acl, on an object.
+
+.EXAMPLE
+Add-Acl -Path 'C:\Windows\Notepad.exe' -AceObject $aceObj
+
+Adds the access control entry object, $aceObj created using New-Acl, to 'C:\Windows\Notepad.exe'
+
+.NOTES
+Author  : Paul Broadwith (https://github.com/pauby)
+
+Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
+
+.LINK
+https://github.com/pauby/oxygen
+#>
     [CmdletBinding()]
     Param (
+        # Path to the object to set the acl on.
         [Parameter(Mandatory = $true)]
         [string]$Path,
 
+        # Ace / Acl to set. Create this using New-Acl.
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [Alias('Acl', 'AclObject')]
         [System.Security.AccessControl.FileSystemAccessRule]$AceObject
     )
 
+    Write-Verbose "Retrieving existing ACL from $Path"
     $objACL = Get-ACL -Path $Path
     $objACL.AddAccessRule($AceObject) 
+    Write-Verbose "Setting ACL on $Path"
     Set-ACL -Path $Path -AclObject $objACL
 }
 
@@ -598,75 +441,103 @@ Function Disable-UAC
 
 
 function New-AclObject {
+<#
+.SYNOPSIS
+Creates a new ACL object.
+
+.DESCRIPTION
+Creates a new ACL object for use with module -Acl* functions.
+
+.EXAMPLE
+New-AclObject -SamAccountName 'testuser' -Permission 'Modify'
+
+Creates an ACL object to Allow Modify permissions without inheritance or propogation for the samAccountName 'testuser'
+.NOTES
+Author  : Paul Broadwith (https://github.com/pauby)
+
+Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
+.LINK
+https://github.com/pauby/oxygen
+#>
     [CmdletBinding()]
     Param (
+        # samAccountName to create the object for
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Username,
+        [Alias('Sam', 'Username')]
+        [string]$SamAccountName,
     
-        # https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.filesystemrights(v=vs.110).aspx
+        # Permissions / rights to be applied (see https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.filesystemrights(v=vs.110).aspx for information)
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [System.Security.AccessControl.FileSystemRights]$AccessRight,
+        [Alais('AccessRight')]
+        [System.Security.AccessControl.FileSystemRights]$Permission,
 
-        [Parameter(Mandatory = $true)]
+        # Allow or deny the access rule (see https://msdn.microsoft.com/en-us/library/w4ds5h86(v=vs.110).aspx for information).
+        # Default is 'Allow'
         [ValidateNotNullOrEmpty()]
-        [System.Security.AccessControl.AccessControlType]$AccessControl,
+        [System.Security.AccessControl.AccessControlType]$AccessControl = 'Allow',
 
-        # https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.inheritanceflags(v=vs.110).aspx
-        [Parameter(Mandatory = $true)]
+        # Inheritance rules to be applied (see https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.inheritanceflags(v=vs.110).aspx for information).
+        # Default is 'None'
         [ValidateNotNullOrEmpty()]
-        [System.Security.AccessControl.InheritanceFlags]$InheritanceFlag,
+        [Alias('InheritanceFlag')]
+        [System.Security.AccessControl.InheritanceFlags]$Inheritance = 'None',
 
-        # https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.propagationflags(v=vs.110).aspx
-        [Parameter(Mandatory = $true)]
+        # Propogation method for the rules (see https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.propagationflags(v=vs.110).aspx for information).
+        # Default is 'None'
         [ValidateNotNullOrEmpty()]
-        [System.Security.AccessControl.PropagationFlags]$PropagationFlag
+        [Alias('PropogationFlag')]
+        [System.Security.AccessControl.PropagationFlags]$Propagation = 'None'
     )
 
     $objUser = New-Object System.Security.Principal.NTAccount($Username) 
 
-    New-Object System.Security.AccessControl.FileSystemAccessRule($objUser, $AccessRight, $InheritanceFlag, $PropagationFlag, $AccessControl)
+    New-Object System.Security.AccessControl.FileSystemAccessRule($objUser, $Permission, $Inheritance, $Propagation, $AccessControl)
 }
 
 
 # this function should be renamed to make it clear what it is setting the owner of
-function Set-Owner {
+function Set-AclOwner {
+<#
+.SYNOPSIS
+Set the owner of an object.
+
+.DESCRIPTION
+Sets the owner of an object. This is related to the 'Acl' group of cmdlets, hence the name. 
+
+.EXAMPLE
+An example
+
+.NOTES
+General notes
+#>
     [CmdletBinding()]
     Param (
-        [Parameter(Mandatory = $true, HelpMessage = 'Path of file or folder to set owner of.')]
+        # Path to set the owner of.
+        [Parameter(Mandatory = $true, HelpMessage = 'Path to set owner of.')]
         [ValidateScript( { Test-Path $_ })]
         [string]$Path,
 
-        [Parameter(Mandatory = $true, HelpMessage = 'Owner samAccountName to set')]
+        # The samAccountName to set as the object owner.
+        [Parameter(Mandatory = $true, HelpMessage = 'The samAccountName to set as the object owner.')]
         [ValidateScript( { [bool](Get-AdUser -Filter { samaccountname -eq $_ } ) } )]
+        [Alias('Sam', 'Username')]
         [string]$SamAccountName
     )
 
+    Write-Verbose "Retrieving existing ACL from $Path"
     $acl = Get-ACL -Path $Path
     $Group = New-Object System.Security.Principal.NTAccount($SamAccountName)
+    Write-Verbose "Setting ACL owner to $SamAccountName"
     $acl.SetOwner($Group)
+    Write-Verbose "Setting ACL on $Path"
     Set-Acl -Path $Path -AclObject $acl
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Add-WindowsDriverPackage
+{
 <#
 .SYNOPSIS
     Adds a Windows driver to the driver store.
@@ -680,20 +551,9 @@ function Set-Owner {
     pnputil.exe. If the errorlevel is 0 then this indicates successfully
     and true is returned, otherwise false is returned.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Path
-    Path to the .inf file of the drive rpackage. Note that this can use wildcards.
-    So you can you c:\drivers\*.inf.
-
-    The path will be checked and exception thrown if it does nto exist.
-.PARAMETER Install
-    Will install the driver package(s).
-.OUTPUTS
-	Output is a [bool] with true if the package was successfully add 
-    (and installed) and false otherwise.
+    https://www.github.com/pauby/oxygen
 .EXAMPLE
     Add-WindowsDriverPackage -Path c:\drivers\usbcam.inf
 
@@ -703,18 +563,18 @@ function Set-Owner {
     
     Adds and installs all *.inf driver packages from c:\drivers
 #>
-
-function Add-WindowsDriverPackage
-{
+    [OutputType([System.Boolean])]
     Param
     (
+        #     Path to the .inf file of the drive rpackage. Note that this can use wildcards.
+        # So you can you c:\drivers\*.inf.
+        # The path will be checked and exception thrown if it does nto exist.
         [Parameter(Mandatory=$true, Position=0)]
         [ValidateScript( { Test-Path $_ } )]
-        [string]
-        $Path,
+        [string]$Path,
 
-        [switch]
-        $Install
+        # Will install the driver package(s).
+        [switch]$Install
     )
 
     if ($Install.IsPresent) {
@@ -808,48 +668,27 @@ function Get-OS {
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Get-WindowsSpecialFolderPath
+{
 <#
 .SYNOPSIS
     Gets the path of a Windows special folder.
 .DESCRIPTION
     Gets the path of a Windows special folder such as Network Shortcuts, Desktop, etc.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 13/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
     https://www.github.com/pauby/oxygen
-.PARAMETER Name
-    The name of the special folder. This name must match one from the list at https://msdn.microsoft.com/en-us/library/system.environment.specialfolder.aspx
-.OUTPUTS
-    Returns a string of Windows Special Folder path.
 .EXAMPLE
     Get-WindowsSpecialFolderPath -Name "NetworkShortcuts"
 
     Gets the network shortcuts folder path.
 #>
-
-function Get-WindowsSpecialFolderPath
-{
     [CmdletBinding()]
-    [OutputType([string])]
+    [OutputType([System.String])]
     Param (
+        #     The name of the special folder. This name must match one from the list at https://msdn.microsoft.com/en-us/library/system.environment.specialfolder.aspx
+
         [Parameter(Mandatory=$true)]
         [ValidateScript( { if ([string]::IsNullOrEmpty($_)) {
                                 $false
@@ -858,8 +697,7 @@ function Get-WindowsSpecialFolderPath
                                 $_ | Test-WindowsSpecialFolderName
                             }
                         } )]
-        [string]
-        $Name
+        [string]$Name
     )
 
     [Environment]::GetFolderPath($Name)
@@ -885,20 +723,21 @@ Sets the Regional Settings for Windows.
 .DESCRIPTION
 Sets the Regional Settings for Windows like you would do by going to Control Panel -> Regional Settings
 
-.PARAMETER Path
-Path to the regional asettings XML file.
+.NOTES
+    Author : Paul Broadwith (https://github.com/pauby)
+
+.LINK
+    https://www.github.com/pauby/oxygen
 
 .EXAMPLE
 Set-Region -Path c:\temp\region-uk.xml
 
 Sets the regional settings to that contained in c:\temp\region-uk.xml
-
-.NOTES
-General notes
 #>
     Param (
+        # Path to the regional settings XML file.
         [Parameter(Mandatory = $true, Position = 0)]
-        [ValidateScript({ Test-Path $_ })]
+        [ValidateScript( { Test-Path $_ } )]
         [string]$Path
     )
 
@@ -920,52 +759,29 @@ function Test-Command($cmdname) {
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Test-WindowsSpecialFolderName
+{
 <#
 .SYNOPSIS
     Tests if a name is a Windows Special Folder Name.
 .DESCRIPTION
     Tests if a name is a Windows Special Folder Name.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 13/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
     https://www.github.com/pauby/oxygen
-.PARAMETER Name
-    The name to test as found at https://msdn.microsoft.com/en-us/library/system.environment.specialfolder.aspx
-.OUTPUTS
-	Output is a [bool] and is $true if the name is a Windows Special Folder Name or $false otherwise.
 .EXAMPLE
     Test-WindowsSpecialFolderName -Name "Desktop"
 
     Tests whether "Desktop" is a valid Windows Special Folder Name and returns $true if it is or $false otherwise.
 #>
-
-function Test-WindowsSpecialFolderName
-{
     [CmdletBinding()]
-    [OutputType([boolean])]
+    [OutputType([System.Boolean])]
     Param (
+        # The name to test as found at https://msdn.microsoft.com/en-us/library/system.environment.specialfolder.aspx
         [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]
-        $Name
+        [string]$Name
     )
 
     Begin {}
@@ -1029,31 +845,15 @@ ConfirmFileOp=1
 }
 
 
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Set-Shortcut
+{
 <#
 .SYNOPSIS
-    Short description.
+    Sets a Windows shortcut.
 .DESCRIPTION
-    Long description.
+    Sets a Windows shortcut.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 13/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
     https://www.github.com/pauby
 .PARAMETER Path
@@ -1069,9 +869,6 @@ ConfirmFileOp=1
 
     Creates a shortcut to c:\windows\system32\notepad.exe on the desktop of the user 'joe'.
 #>
-
-function Set-Shortcut
-{
     [CmdletBinding()]
     [OutputType([boolean])]
     Param (
