@@ -1,28 +1,12 @@
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Set-Shortcut
+{
 <#
 .SYNOPSIS
-    Short description.
+    Sets a Windows shortcut.
 .DESCRIPTION
-    Long description.
+    Sets a Windows shortcut.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 13/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
     https://www.github.com/pauby
 .PARAMETER Path
@@ -38,9 +22,6 @@
 
     Creates a shortcut to c:\windows\system32\notepad.exe on the desktop of the user 'joe'.
 #>
-
-function Set-Shortcut
-{
     [CmdletBinding()]
     [OutputType([boolean])]
     Param (

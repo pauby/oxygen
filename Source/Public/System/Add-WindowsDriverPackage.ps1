@@ -1,20 +1,5 @@
-<#
-# This file is part of the Oxygen distribution (https://github.com/pauby/Oxygen).
-# Copyright (c) 2016 Paul Broadwith
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-#>
-
+function Add-WindowsDriverPackage
+{
 <#
 .SYNOPSIS
     Adds a Windows driver to the driver store.
@@ -28,20 +13,9 @@
     pnputil.exe. If the errorlevel is 0 then this indicates successfully
     and true is returned, otherwise false is returned.
 .NOTES
-	Author		: Paul Broadwith (paul@pauby.com)
-	History		: 1.0 - 14/07/16 - Initial version
+    Author : Paul Broadwith (https://github.com/pauby)
 .LINK
-    https://www.github.com/pauby/Oxygen
-.PARAMETER Path
-    Path to the .inf file of the drive rpackage. Note that this can use wildcards.
-    So you can you c:\drivers\*.inf.
-
-    The path will be checked and exception thrown if it does nto exist.
-.PARAMETER Install
-    Will install the driver package(s).
-.OUTPUTS
-	Output is a [bool] with true if the package was successfully add 
-    (and installed) and false otherwise.
+    https://www.github.com/pauby/oxygen
 .EXAMPLE
     Add-WindowsDriverPackage -Path c:\drivers\usbcam.inf
 
@@ -51,18 +25,18 @@
     
     Adds and installs all *.inf driver packages from c:\drivers
 #>
-
-function Add-WindowsDriverPackage
-{
+    [OutputType([System.Boolean])]
     Param
     (
+        #     Path to the .inf file of the drive rpackage. Note that this can use wildcards.
+        # So you can you c:\drivers\*.inf.
+        # The path will be checked and exception thrown if it does nto exist.
         [Parameter(Mandatory=$true, Position=0)]
         [ValidateScript( { Test-Path $_ } )]
-        [string]
-        $Path,
+        [string]$Path,
 
-        [switch]
-        $Install
+        # Will install the driver package(s).
+        [switch]$Install
     )
 
     if ($Install.IsPresent) {

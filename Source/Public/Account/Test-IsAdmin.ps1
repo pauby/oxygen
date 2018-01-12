@@ -12,8 +12,6 @@ function Test-IsAdmin
     http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
 .LINK
     https://github.com/pauby/oxygen    
-.INPUTS
-    None.
 .OUTPUTS
 	[System.Boolean]
 .EXAMPLE
