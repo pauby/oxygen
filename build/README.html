@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Readme</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Readme</h1>
+</header>
+<h1>Oxygen (O2)</h1>
+<p>PowerShell module containing useful functions for automating, configuring or managing deployed Windows operating systems and or builds.</p>
+<p>The initial idea for this module was to allow me to provide some of the configuration functionality that Group Policy provides in an Active Directory domain <strong>without</strong> Active Directory.</p>
+<blockquote>
+<p>NOTE: The code in this module is not yet ready for prime time. It's currently a collection of code that either I've put together myself, code I've found or code I've been given. Where I've found or been given code, appropriate credit has been or will be given <em>where I can</em>. Some of the functions are nothing more than wrappers for registry changes or command line executables with appropriate switches or parameters. Some of the code has no error handling, appropriate output, comments, or adhere to any standards - see the <a href="#todo">todo</a> for what is and will be done. If you use any of this code, make sure you understand what it does beforehand.</p>
+</blockquote>
+<h1>Current State</h1>
+<p>Working towards baseline.</p>
+<h2>System Requirements</h2>
+<p>PowerShell version 4 and .NET framework 4.5 is required.</p>
+<h2>Versioning</h2>
+<p><a href="http://semver.org/">Semantic versioning</a> will be used for x.y.z (major.minor.patch) levels;</p>
+<h2>Changelog</h2>
+<p>See <a href="changelog.md">here</a>.</p>
+<h2>Todo</h2>
+<h3>To Achieve Baseline</h3>
+<ul>
+<li>[ ] Rewrite functions adhering to <a href="https://github.com/PoshCode/PowerShellPracticeAndStyle" title="PowerShell Best Practices">standards</a>, <a href="https://msdn.microsoft.com/en-us/library/ms714428.aspx">approved verbs</a> and add error handling and output;</li>
+<li>[ ] Add documentation for each function - help comments, helpmessage</li>
+<li>[ ] Pester tests and PSScriptAnalyser rules (<strong>to be decided</strong>) for each function as appropriate;</li>
+<li>[ ] Create module build;</li>
+</ul>
+<h4>Function Todo</h4>
+<ul>
+<li>[ ] Rewrite the following functions to throw / write-error rather than return $true / $false:
+<ul>
+<li>Reset-Printer</li>
+<li>Reset-PrinterDriver</li>
+<li>Reset-PrinterPort</li>
+<li>Add-WindowsDriverPackage</li>
+</ul></li>
+</ul>
+</body>
+</html>
