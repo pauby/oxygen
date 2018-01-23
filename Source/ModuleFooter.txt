@@ -1,0 +1,4 @@
+
+# Aliases
+
+New-Alias -Name 'Test-IsInteractiveUser' -Value '[Environment]::UserInteractive'
