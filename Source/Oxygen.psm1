@@ -14,70 +14,6 @@
 #>
 
 Set-StrictMode -Version Latest
-
-function Test-EmptyPassword
-{
-    Param 
-    (
-        [Parameter(Mandatory=$true)]
-        [string]
-        $Username,
-        
-        [Parameter(Mandatory=$false)]
-        [string]
-        $Computername = "localhost"
-    )
-    
-    $user = [ADSI]("WinNT://" + $Computername+ "/" + $Username + ", user")
-    try 
-    {
-        $user.invoke("ChangePassword","","DummyPassword")    
-    }
-    catch [System.Exception] 
-    {
-        return $false
-    }
-    
-    $user.invoke("ChangePassword","DummyPassword","")  
-    return $true
-}
-
-
-function Test-IsAdmin
-{
-<#
-.SYNOPSIS
-    Test for elevated privileges.
-.DESCRIPTION
-    Test if the current session has elevated privileges.
-
-    Returns true if the current session has elevated privileges and false otherwise.
-.NOTES
-    Code by Andy Arismendi (http://stackoverflow.com/users/251123/andy-arismendi)
-    http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
-.LINK
-    https://github.com/pauby/oxygen    
-.OUTPUTS
-	[System.Boolean]
-.EXAMPLE
-    Test-IsAdmin
-
-    Tests to see if the current session has elevated privileges.
-#>
-
-    try
-    {
-        $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
-        $principal = New-Object Security.Principal.WindowsPrincipal -ArgumentList $identity
-        return $principal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Administrator )
-    }
-    catch
-    {
-        throw "Failed to determine if the current user has elevated privileges. The error was: '{0}'." -f $_
-    }
-}
-
-
 function Reset-Printer
 {
 <#
@@ -759,6 +695,27 @@ function Test-Command($cmdname) {
 }
 
 
+<#
+.SYNOPSIS
+Returns boolean determining if prompt was run noninteractive.
+.DESCRIPTION
+First, we check `[Environment]::UserInteractive` to determine if we're if the shell if running 
+interactively. An example of not running interactively would be if the shell is running as a service.
+If we are running interactively, we check the Command Line Arguments to see if the `-NonInteractive` 
+switch was used; or an abbreviation of the switch.
+.LINK
+https://github.com/Vertigion/Test-IsNonInteractiveShell
+#>
+function Test-IsNonInteractiveShell {
+    if ([Environment]::UserInteractive -and (-not ([Environment]::GetCommandLineArgs() | ?{ $_ -like '-NonI*' }))) {
+        # Test each Arg for match of abbreviated '-NonInteractive' command.
+        return $true
+    }
+
+    return $false
+}
+
+
 function Test-WindowsSpecialFolderName
 {
 <#
@@ -905,3 +862,70 @@ function Set-Shortcut
 }
 
 
+function Test-EmptyPassword
+{
+    Param 
+    (
+        [Parameter(Mandatory=$true)]
+        [string]
+        $Username,
+        
+        [Parameter(Mandatory=$false)]
+        [string]
+        $Computername = "localhost"
+    )
+    
+    $user = [ADSI]("WinNT://" + $Computername+ "/" + $Username + ", user")
+    try 
+    {
+        $user.invoke("ChangePassword","","DummyPassword")    
+    }
+    catch [System.Exception] 
+    {
+        return $false
+    }
+    
+    $user.invoke("ChangePassword","DummyPassword","")  
+    return $true
+}
+
+
+function Test-IsAdmin
+{
+<#
+.SYNOPSIS
+    Test for elevated privileges.
+.DESCRIPTION
+    Test if the current session has elevated privileges.
+
+    Returns true if the current session has elevated privileges and false otherwise.
+.NOTES
+    Code by Andy Arismendi (http://stackoverflow.com/users/251123/andy-arismendi)
+    http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
+.LINK
+    https://github.com/pauby/oxygen    
+.OUTPUTS
+	[System.Boolean]
+.EXAMPLE
+    Test-IsAdmin
+
+    Tests to see if the current session has elevated privileges.
+#>
+
+    try
+    {
+        $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object Security.Principal.WindowsPrincipal -ArgumentList $identity
+        return $principal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Administrator )
+    }
+    catch
+    {
+        throw "Failed to determine if the current user has elevated privileges. The error was: '{0}'." -f $_
+    }
+}
+
+
+
+# Aliases
+
+New-Alias -Name 'Test-IsInteractiveUser' -Value '[Environment]::UserInteractive'
