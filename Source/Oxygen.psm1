@@ -14,6 +14,7 @@
 #>
 
 Set-StrictMode -Version Latest
+
 function Reset-Printer
 {
 <#
@@ -775,22 +776,28 @@ function Set-NetworkShortcut {
     # check if the .lnk file exists for the shortcut
     $shortcutFullPath = Join-Path -Path $shortcutPath -ChildPath $Name
     if ($Force -and (Test-Path -Path $shortcutFullPath)) {
+        Write-Verbose "Deleting network shortcut $shortcutFullPath as -Force parameter provided"
         Remove-Item -Path $shortcutFullPath -Force -Recurse
     }
 
     # create the folder
-    $newLinkFolder = New-Item -Name $Name -Path $shortcutFullPath -Type Directory
+    Write-Verbose "Creating the shortcut folder $shortcutFullPath"
+    New-Item -Name $Name -Path $shortcutFullPath -Type Directory | Out-Null
 
     # Create the ini file
+    $iniPath = Join-Path -Path $shortcutFullPath -ChildPath "Desktop.ini"
+    Write-Verbose "Creating the INI file $iniPath"
     @"
 [.ShellClassInfo]
 CLSID2={0AFACED1-E828-11D1-9187-B532F1E9575D}
 Flags=2
 ConfirmFileOp=1
-"@ | Out-File -FilePath (Join-Path -Path $shortcutFullPath -ChildPath "Desktop.ini")
+"@ | Out-File -FilePath $iniPath 
 
         # Create the shortcut file
-    $shortcut = (New-Object -ComObject WScript.Shell).Createshortcut((Join-Path -Path $shortcutFullPath -ChildPath "target.lnk"))
+    $lnkPath = Join-Path -Path $shortcutFullPath -ChildPath "target.lnk"
+    Write-Verbose "Cresating shortcut .lnk $lnkPath"
+    $shortcut = (New-Object -ComObject WScript.Shell).Createshortcut($lnkPath)
     $shortcut.TargetPath = $Destination
     $shortcut.IconLocation = "%SystemRoot%\system32\SHELL32.DLL, 275"   # find more icons http://help4windows.com/windows_7_shell32_dll.shtml
     $shortcut.Description = $Destination
