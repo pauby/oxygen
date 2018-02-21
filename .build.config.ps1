@@ -24,7 +24,7 @@ $BuildOptions = @{
     PSGalleryApiKey         = $env:PSGALLERY_API_KEY
     BuildPath               = "$BuildRoot\build"
     SourcePath              = "$BuildRoot\source"
-    TestsPath               = "$BuildRoot\tests"
+    TestPath                = "$BuildRoot\tests"
     ModuleLoadPath          = "$($env:mysyncroot)\Coding\PowerShell\Modules"
 }
 
@@ -45,7 +45,9 @@ $ManifestOptions = @{
     DotNetFrameworkVersion  = '4.5'
     DefaultCommandPrefix    = 'O2'
     FormatsToProcess        = ''
-#    FunctionsToExport      = (Get-ChildItem (Join-Path $BuildOptions.SourcePath -ChildPath "public\*.ps1") -Recurse).BaseName
+    FunctionsToExport       = (Get-ChildItem (Join-Path $BuildOptions.SourcePath -ChildPath "public\*.ps1") -Recurse).BaseName
+    AliasesToExport         = ''
+    CmdletsToExport         = ''
     Tags                    = 'Windows', 'GroupPolicy', 'Management', 'Automation', 'Configuration'
     #IconUri                 = ''
     ProjectUri              = "https://github.com/pauby/$($BuildOptions.Modulename)"
