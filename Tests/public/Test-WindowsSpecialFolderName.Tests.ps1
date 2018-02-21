@@ -1,8 +1,10 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$here = Split-Path -Parent $here
-Import-Module $here\Oxygen
+#Requires -Module PSBuildHelper
+$ModuleName = 'Oxygen'
 
-InModuleScope Oxygen {
+Set-ProjectRoot -Path $PSScriptRoot
+$thisModule = Import-TestedModule -Name $ModuleName
+
+InModuleScope $ModuleName {
 
     Describe "Test-WindowsSpecialFolderName" {
         It "Should throw for invalid data" {
@@ -11,7 +13,7 @@ InModuleScope Oxygen {
         }
         It "Should return `$false for invalid names" {
             $tests = @("Luke", "Han", "Chewie")
-            $tests | Test-WindowsSpecialFolderName | Should Be $false
+            $tests | Test-WindowsSpecialFolderName | ForEach-Object { $_ | Should Be $false } 
         }
 
         It "Should return `$true for valid names" {
@@ -22,5 +24,3 @@ InModuleScope Oxygen {
         }
     }
 }
-
-Remove-Module Oxygen

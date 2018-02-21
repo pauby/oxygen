@@ -1,8 +1,10 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$here = Split-Path -Parent $here
-Import-Module $here\Oxygen
+#Requires -Module PSBuildHelper
+$ModuleName = 'Oxygen'
 
-InModuleScope Oxygen {
+Set-ProjectRoot -Path $PSScriptRoot
+$thisModule = Import-TestedModule -Name $ModuleName
+
+InModuleScope $ModuleName {
 
     Describe "Get-WindowsSpecialFolderPath" {
 
@@ -26,5 +28,3 @@ InModuleScope Oxygen {
         }
     }
 }
-
-Remove-Module Oxygen

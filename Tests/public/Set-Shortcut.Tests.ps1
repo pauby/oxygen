@@ -1,8 +1,10 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$here = Split-Path -Parent $here
-Import-Module $here\Oxygen
+#Requires -Module PSBuildHelper
+$ModuleName = 'Oxygen'
 
-InModuleScope Oxygen {
+Set-ProjectRoot -Path $PSScriptRoot
+$thisModule = Import-TestedModule -Name $ModuleName
+
+InModuleScope $ModuleName {
 
     Describe "Set-Shortcut" {
 
@@ -14,11 +16,9 @@ InModuleScope Oxygen {
 
         It "Should create a shortcut" {
             $shortcut = "$env:USERPROFILE\Desktop\notepad.lnk"
-            { Set-Shortcut -Path $shortcut -Target "$env:SystemRoot\System32\notepad.exe" } | Should Be $true
+            Set-Shortcut -Path $shortcut -Target "$env:SystemRoot\System32\notepad.exe" | Should Be $true
             $shortcut | Should exist
             Remove-Item $shortcut
         }
     }
 }
-
-Remove-Module Oxygen
