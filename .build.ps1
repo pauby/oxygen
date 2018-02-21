@@ -243,20 +243,21 @@ task Test6 -If $env:powershell6 {
 
 task Test BuildManifest, {
     $pesterParams = @{
-        EnableExit = $false;
-        PassThru   = $true;
-        Strict     = $true;
-        Show       = "Failed"
+        EnableExit  = $false
+        PassThru    = $true
+        Strict      = $true
+        Show        = "Failed"
+        Path        = $BuildOptions.TestPath
     }
 
     # will throw an error and stop the build if errors
     Test-ModuleManifest "$($BuildOptions.SourcePath)\$($BuildOptions.ModuleName).psd1" -ErrorAction Stop | Out-Null
 
     # remove the module before we test it
-    #Remove-Module $BuildOptions.ModuleName -Force -ErrorAction SilentlyContinue
-    #$results = Invoke-Pester @pesterParams
-    #$fails = @($results).FailedCount
-    #assert($fails -eq 0) ('Failed "{0}" unit tests.' -f $fails)
+    Remove-Module $BuildOptions.ModuleName -Force -ErrorAction SilentlyContinue
+    $results = Invoke-Pester @pesterParams
+    $fails = @($results).FailedCount
+    assert($fails -eq 0) ('Failed "{0}" unit tests.' -f $fails)
 }
 
 task CodeAnalysis {
@@ -270,7 +271,7 @@ task CodeAnalysis {
 }
 
 task InstallDependencies {
-    @( "Pester", "PSScriptAnalyzer", "PsCodeHealth", "ModuleBuild") | ForEach-Object {
+    @( "Pester", "PSScriptAnalyzer" ) | ForEach-Object {
         if (!(Get-Module -Name $_ -ListAvailable)) {
             Install-Module $_ -Force -Scope CurrentUser
         }
