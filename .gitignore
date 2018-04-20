@@ -1,2 +1,7 @@
-build/
-Source/Oxygen.ps?1
+*-test.*
+*.ignore
+.git
+output/
+help/
+[0-9].*/
+releases/
