@@ -6,20 +6,33 @@ function Test-Printer
 .DESCRIPTION
     Tests if the specified printer exists on the local computer.
 .NOTES
-    Author : Paul Broadwith (https://github.com/pauby)
-.LINK
-    https://www.github.com/pauby/oxygen
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen (https://www.github.com/pauby/oxygen)
+    History : v1.0 - 20/04/18 - Initial
 .OUTPUTS
-	Output is of type [bool] and is true if the printer name exists and false otherwise.
+    [boolean]
 .EXAMPLE
     Test-Printer -Name "HP LaserJet 4"
 
     Tests if the printer named "HP LaserJet 4" exists on the local computer.
+.LINK
+    Reset-Printer
+.LINK
+    Reset-PrinterDriver
+.LINK
+    Reset-PrinterPort
+.LINK
+    Test-PrinterDriver
+.LINK
+    Test-PrinterDriverStore
+.LINK
+    Test-PrinterPort
 #>
-    [OutputType([System.Boolean])]
+    [CmdletBinding()]
+    [OutputType([boolean])]
     Param (
         # Specified printer name to test.
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$Name
     )

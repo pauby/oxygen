@@ -1,22 +1,26 @@
-#Requires -Module PSBuildHelper
-$ModuleName = 'Oxygen'
+$testEnv = Initialize-TestEnvironment
 
-Set-ProjectRoot -Path $PSScriptRoot
-$thisModule = Import-TestedModule -Name $ModuleName
-
-InModuleScope $ModuleName {
-
-    Describe "Set-Shortcut" {
-
-        It "Should throw for invalid data" {
-            { Set-Shortcut -Path "" -Target "abc" } | Should throw "Cannot validate argument"
-            { Set-Shortcut -Path "$env:USERPROFILE\notepad.lnk" -Target "" } | Should throw "null or empty"
-            { Set-Shortcut -Path "" -Target "" } | Should throw "Cannot validate argument"
+Describe 'Function Testing - Set-Shortcut' {
+    Context 'Input' {
+        It 'should be true if mandatory parameters have not been changed' {
+            $mandatoryParams = @( 'Path', 'DestinationUri' )
+            $result = Get-FunctionParameter -Name 'Set-Shortcut' | Where-Object { $_.Value.Attributes.Mandatory -eq $true }
+            
+            @($result).count | Should -Be @($mandatoryParams).Count
+            [bool]($result | ForEach-Object { $mandatoryParams -contains $_.key }) | Should -Be $true  
         }
 
-        It "Should create a shortcut" {
+        It 'should throw for invalid data' {
+            { Set-Shortcut -Path '' -DestinationUri 'abc' } | Should throw 'Cannot validate argument'
+            { Set-Shortcut -Path "$env:USERPROFILE\notepad.lnk" -DestinationUri '' } | Should throw 'null or empty'
+            { Set-Shortcut -Path '' -DestinationUri '' } | Should throw 'Cannot validate argument'
+        }
+    }
+
+    Context 'Output' {
+        It 'should create a shortcut' {
             $shortcut = "$env:USERPROFILE\Desktop\notepad.lnk"
-            Set-Shortcut -Path $shortcut -Target "$env:SystemRoot\System32\notepad.exe" | Should Be $true
+            Set-Shortcut -Path $shortcut -DestinationUri "$env:SystemRoot\System32\notepad.exe" | Should Be $true
             $shortcut | Should exist
             Remove-Item $shortcut
         }

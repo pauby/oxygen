@@ -6,19 +6,34 @@ function Test-PrinterDriverStore
 .DESCRIPTION
     Test if the specified printer driver exists in the printer driver store.
 .NOTES
-    Author : Paul Broadwith (https://github.com/pauby)
-.LINK
-    https://www.github.com/pauby/oxygen
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen (https://www.github.com/pauby/oxygen)
+    History : v1.0 - 20/04/18 - Initial
+.OUTPUTS
+    [boolean]
 .EXAMPLE
     Test-PrinterDriverStore -Name "HP LaserJet PS"
 
     Tests if the printer driver named "HP LaserJet PS" exists in the printer driver store.
+.LINK
+    Reset-Printer
+.LINK
+    Reset-PrinterDriver
+.LINK
+    Reset-PrinterPort
+.LINK
+    Test-Printer
+.LINK
+    Test-PrinterDriver
+.LINK
+    Test-PrinterPort
 #>
-    [OutputType([System.Boolean])]
-    Param
-    (
+    [CmdletBinding()]
+    [OutputType([boolean])]
+    Param (
         # Specifies the name of the printer driver to test.
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [string]$Name
     )
 

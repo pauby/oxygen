@@ -4,32 +4,45 @@ function Reset-PrinterDriver
 .SYNOPSIS
     Reset the specified printer driver.
 .DESCRIPTION
-    Reset the specified printer driver.
+    Reset the specified printer driver by removing it and adding it back again.
 .NOTES
-    Author : Paul Broadwith (https://github.com/pauby)
-.LINK
-    https://www.github.com/pauby/Oxygen
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen (https://github.com/pauby/oxygen)
+    History : v1.0 - 20 April 2018
 .OUTPUTS
-	[System.Boolean]
+    [boolean]
 .EXAMPLE
     Reset-PrinterDriver -Name "HP LaserJet PS"
 
     Remove and add the printer driver called "HP LaserJet PS"
+.LINK
+    Reset-Printer
+.LINK
+    Reset-PrinterPort
+.LINK
+    Test-Printer
+.LINK
+    Test-PrinterDriver
+.LINK
+    Test-PrinterDriverStore
+.LINK
+    Test-PrinterPort
 #>
-    [OutputType([System.Boolean])]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
+    [OutputType([boolean])]
     Param
     (
         # Specifies the printer driver to reset.
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$Name
     )
 
     if (Test-PrinterDriver -Name $Name)
     {
-        # remove the driver
-        Remove-PrinterDriver -Name $Name -ErrorAction SilentlyContinue
+        if (PSCmdlet.ShouldProcess($Name, 'Removing printer driver')) {
+            Remove-PrinterDriver -Name $Name -ErrorAction SilentlyContinue
+        }
 
         # check it's gone
         if (Test-PrinterDriver -Name $Name) {
@@ -47,5 +60,4 @@ function Reset-PrinterDriver
     else {
         return $false
     }
-
 }

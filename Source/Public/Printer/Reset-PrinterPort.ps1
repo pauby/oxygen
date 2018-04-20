@@ -8,33 +8,47 @@ function Reset-PrinterPort
 
     You do not need administrator privileges to use Reset-PrinterPort
 .NOTES
-	Author : Paul Broadwith (https://github.com/pauby)
-.LINK
-    https://www.github.com/pauby/oxygen
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen https://www.github.com/pauby/oxygen
+    History : v1.0 - 20/04/18 - Initial
 .OUTPUTS
-	[System.Boolean]
+    [boolean]
 .EXAMPLE]
     Reset-PrinterPort -PortName "HPLJ" -PrinterHostAddress "192.168.10.100"
 
     Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100
+.LINK
+    Reset-Printer
+.LINK
+    Reset-PrinterDriver
+.LINK
+    Test-Printer
+.LINK
+    Test-PrinterDriver
+.LINK
+    Test-PrinterDriverStore
+.LINK
+    Test-PrinterPort
 #>
-    [OutputType([System.Boolean])]
-    Param
-    (
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
+    [OutputType([boolean])]
+    Param (
         # Specifies the Name of the port to be reset. You can get this name using Get-PrinterPort.
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$PortName,
 
         # Specifies the IP address of the printer port to be added.
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$PrinterHostAddress
     )
 
     # check we have a port and remove it
     if (Test-PrinterPort -Name $PortName) {
-        Remove-PrinterPort -Name $PortName -ErrorAction SilentlyContinue
+        if (PSCmdlet.ShouldProcess($Name, 'Removing printer port')) {
+            Remove-PrinterPort -Name $PortName -ErrorAction SilentlyContinue
+        }
 
         # check the port is gone
         if (Test-PrinterPort -Name $PortName) {

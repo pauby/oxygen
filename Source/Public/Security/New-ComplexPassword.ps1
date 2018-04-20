@@ -11,41 +11,34 @@ Add-Type -TypeDefinition @"
 function New-ComplexPassword {
     <#
     .SYNOPSIS
-    Creates a complex password.
-
+        Creates a complex password.
     .DESCRIPTION
-    Creates a complex password using one or more of upper case, lower case,
-    numbers and symbols.
-
+        Creates a complex password using one or more of upper case, lower case,
+        numbers and symbols.
     .OUTPUTS
-    System.String
-
+        [string]
     .EXAMPLE
-    New-ComplexPassword
+        New-ComplexPassword
 
-    Create a password with a length of 12 and using upper, lower, numbers and
-    symbols.
-
+        Create a password with a length of 12 and using upper, lower, numbers and
+        symbols.
     .EXAMPLE
-    New-ComplexPassword -Length 25 -Complexity Upper, Lower
+        New-ComplexPassword -Length 25 -Complexity Upper, Lower
 
-    Create a password with a length of 25 characters and using upper and lower
-    case characters.
-
+        Create a password with a length of 25 characters and using upper and lower
+        case characters.
     .EXAMPLE
-    New-ComplexPassword -Exclude @('0') -Complexity Upper, Lower, Number
+        New-ComplexPassword -Exclude @('0') -Complexity Upper, Lower, Number
 
-    Create a password with a length of 12, using upper, lower and numbers but
-    excluding '0' (zero)
-
+        Create a password with a length of 12, using upper, lower and numbers but
+        excluding '0' (zero)
     .NOTES
-    Author : Paul Broadwith (https://github.com/pauby)
-
-    .LINK
-    https://www.github.com/pauby/oxygen
-#>
-    [CmdletBinding()]
-    [OutputType([System.String])]
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
+        History : v1.0 - 20/04/18 - Initial
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'No state is being changed')]
+    [OutputType([string])]
     Param (
         # Length of the password to generate. By default this is 12.
         [ValidateRange(1, 999)]

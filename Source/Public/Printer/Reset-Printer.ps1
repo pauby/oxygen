@@ -6,18 +6,30 @@ function Reset-Printer {
     Reset the specified printer on the local computer by removing the printer,
     driver and port and adding them back.
 .NOTES
-    Author : Paul Broadwith (https://github.com/pauby)
-.LINK
-    https://www.github.com/pauby/oxygen
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen (https://github.com/pauby/oxygen)
+    History : v1.0 - 20 April 2014
 .OUTPUTS
-    [System.Boolean]
+    [boolean]
 .EXAMPLE
     Reset-Printer -Name "HP LaserJet 4" -DriverName "HP LaserJet PS" -PortName "HPLJ4" -PrinterHostAddress "192.168.10.100"
 
     Resets the printer called "HP LaserJet 4", driver named "HP LaserJet PS", port "HPLJ4" with IP address 192.168.10.100 by removing the port, driver and printer and then adding them back again.
+.LINK
+    Reset-PrinterDriver
+.LINK
+    Reset-PrinterPort
+.LINK
+    Test-Printer
+.LINK
+    Test-PrinterDriver
+.LINK
+    Test-PrinterDriverStore
+.LINK
+    Test-PrinterPort
 #>
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Medium')]
-    [OutputType([System.Boolean])]
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Low')]
+    [OutputType([boolean])]
     Param
     (
         # Specifies the name of the printer to reset on the local computer.
@@ -54,23 +66,25 @@ function Reset-Printer {
     }
 
     Process {
-        if ($Force -or $PSCmdlet.ShouldProcess("ShouldProcess?")) {
-            Write-Verbose "Removing printer $Name"
+        Write-Verbose "Removing printer $Name"
+
+        if ($PSCmdlet.ShouldProcess($Name, "Removing printer")) {
             Remove-Printer -Name $Name
-            Write-Verbose "Checking printer $Name has been removed"
-            if (Test-Printer -Name $Name) {
+        }
+
+        Write-Verbose "Checking printer $Name has been removed"
+        if (Test-Printer -Name $Name) {
+            $false
+        }
+        else {
+            # check each of these suceeds.
+            if ((-not (Reset-PrinterPort -PortName $PortName -IPAddress $IPAddress)) -or
+                    (-not (Reset-PrinterDriver -DriverName $DriverName)) -or
+                    (-not (Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName -Force:($Force.IsPresent))) ) {
                 $false
             }
             else {
-                # check each of these suceeds.
-                if ((-not (Reset-PrinterPort -PortName $PortName -IPAddress $IPAddress -Force:($Force.IsPresent))) -or
-                        (-not (Reset-PrinterDriver -DriverName $DriverName -Force:($Force.IsPresent))) -or
-                        (-not (Add-Printer -Name $Name -DriverName $DriverName -PortName $PortName -Force:($Force.IsPresent))) ) {
-                    $false
-                }
-                else {
-                    $true
-                }
+                $true
             }
         }
     }

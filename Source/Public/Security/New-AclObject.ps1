@@ -1,23 +1,25 @@
 function New-AclObject {
-<#
-.SYNOPSIS
-Creates a new ACL object.
+    <#
+    .SYNOPSIS
+        Creates a new ACL object.
+    .DESCRIPTION
+        Creates a new ACL object for use with module -Acl* functions.
+    .EXAMPLE
+        New-AclObject -SamAccountName 'testuser' -Permission 'Modify'
 
-.DESCRIPTION
-Creates a new ACL object for use with module -Acl* functions.
+        Creates an ACL object to Allow Modify permissions without inheritance or propogation for the samAccountName 'testuser'
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
+        History : v1.0 - 20/04/18 - Initial
 
-.EXAMPLE
-New-AclObject -SamAccountName 'testuser' -Permission 'Modify'
-
-Creates an ACL object to Allow Modify permissions without inheritance or propogation for the samAccountName 'testuser'
-.NOTES
-Author  : Paul Broadwith (https://github.com/pauby)
-
-Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
-.LINK
-https://github.com/pauby/oxygen
-#>
-    [CmdletBinding()]
+        Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
+    .LINK
+        Add-Acl
+    .LINK
+        Set-Owner
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'No state is being changed')]
     Param (
         # samAccountName to create the object for
         [Parameter(Mandatory = $true)]
@@ -28,7 +30,7 @@ https://github.com/pauby/oxygen
         # Permissions / rights to be applied (see https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.filesystemrights(v=vs.110).aspx for information)
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [Alais('AccessRight')]
+        [Alias('AccessRight')]
         [System.Security.AccessControl.FileSystemRights]$Permission,
 
         # Allow or deny the access rule (see https://msdn.microsoft.com/en-us/library/w4ds5h86(v=vs.110).aspx for information).
@@ -48,6 +50,8 @@ https://github.com/pauby/oxygen
         [Alias('PropogationFlag')]
         [System.Security.AccessControl.PropagationFlags]$Propagation = 'None'
     )
+
+    [OutputType([System.Security.AccessControl.FileSystemAccessRule])]
 
     $objUser = New-Object System.Security.Principal.NTAccount($Username) 
 
