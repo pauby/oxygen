@@ -25,14 +25,8 @@
     Testing = @{
         CodeCoverageThreshold = 0.2
     }
-	
-	ModuleScript = @{
-		Header = "Set-StrictMode -Version Latest"
-		Footer = @"
-# Aliases
 
-New-Alias -Name 'Test-IsInteractiveUser' -Value '[Environment]::UserInteractive'
-New-Alias -Name 'Disable-UAC' -Value 'New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 0 -PropertyType "DWord" -Force'
-"@
-	}
+    ModuleScript = @{
+        Header = "Set-StrictMode -Version Latest"
+    }
 }
