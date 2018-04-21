@@ -1,4 +1,5 @@
 $testEnv = Initialize-TestEnvironment
+
 Describe 'Function Testing - New-ComplexPassword' {
     Context 'Input' {
         It "should throw for invalid data" {
