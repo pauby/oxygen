@@ -1,5 +1,5 @@
 
-function Test-IsNonInteractiveShell {
+function Test-IsInteractiveShell {
     <#
     .SYNOPSIS
         Tests if the current shell is noninteractive.
@@ -23,11 +23,5 @@ function Test-IsNonInteractiveShell {
     [OutputType([boolean])]
     Param()
 
-    if ([Environment]::UserInteractive -and (-not ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }))) {
-        # Test each Arg for match of abbreviated '-NonInteractive' command.
-        $true
-    }
-    else {
-        $false
-    }
+    ([Environment]::UserInteractive -and (-not ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' })))
 }
