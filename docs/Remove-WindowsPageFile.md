@@ -67,6 +67,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -81,4 +83,6 @@ History : 1.0 - 20/04/18 - Initial release
 [Disable-PageFile]()
 
 [Enable-PageFile]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/remove-windowspagefile.md](https://github.com/pauby/oxygen/blob/master/docs/remove-windowspagefile.md)
 

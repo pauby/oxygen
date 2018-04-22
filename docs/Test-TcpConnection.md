@@ -93,6 +93,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -103,3 +105,6 @@ Project : Oxygen (https://github.com/pauby/oxygen)
 History : 1.0 - 21/04/18 - Initial release
 
 ## RELATED LINKS
+
+[https://github.com/pauby/oxygen/blob/master/docs/test-tcpconnection.md](https://github.com/pauby/oxygen/blob/master/docs/test-tcpconnection.md)
+

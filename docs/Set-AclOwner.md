@@ -98,7 +98,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
+
+### System.Security.AccessControl.FileSecurity
 
 ## NOTES
 Author  : Paul Broadwith (https://github.com/pauby)
@@ -110,4 +114,6 @@ History : v1.0 - 20/04/18 - Initial
 [Add-Acl]()
 
 [New-AclObject]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/set-aclowner.md](https://github.com/pauby/oxygen/blob/master/docs/set-aclowner.md)
 

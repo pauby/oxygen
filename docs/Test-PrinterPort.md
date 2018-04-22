@@ -51,6 +51,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -73,4 +75,6 @@ History : v1.0 - 20/04/18 - Initial
 [Test-PrinterDriver]()
 
 [Test-PrinterDriverStore]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/test-printerport.md](https://github.com/pauby/oxygen/blob/master/docs/test-printerport.md)
 

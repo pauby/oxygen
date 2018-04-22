@@ -120,7 +120,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
+
+### System.Security.Principal.NTAccount
 
 ## NOTES
 Author  : Paul Broadwith (https://github.com/pauby)
@@ -134,4 +138,6 @@ Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx
 [Add-Acl]()
 
 [Set-Owner]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/new-aclobject.md](https://github.com/pauby/oxygen/blob/master/docs/new-aclobject.md)
 

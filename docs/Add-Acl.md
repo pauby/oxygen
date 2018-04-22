@@ -67,7 +67,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
+
+### System.Security.AccessControl.FileSecurity
 
 ## NOTES
 Author  : Paul Broadwith (https://github.com/pauby)

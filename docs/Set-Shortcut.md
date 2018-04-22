@@ -46,7 +46,7 @@ Aliases:
 Required: True
 Position: 2
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -79,7 +79,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -120,6 +120,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -132,4 +134,6 @@ History : v1.0 - 20/04/18 - Initial
 ## RELATED LINKS
 
 [Set-NetworkShortcut]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/set-shortcut.md](https://github.com/pauby/oxygen/blob/master/docs/set-shortcut.md)
 

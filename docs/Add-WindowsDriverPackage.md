@@ -117,6 +117,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -127,3 +129,6 @@ Project : Oxygen (https://github.com/pauby/oxygen)
 History : v1.0 - 20/04/18 - Initial
 
 ## RELATED LINKS
+
+[https://github.com/pauby/oxygen/blob/master/docs/add-windowsdriverpackage.md](https://github.com/pauby/oxygen/blob/master/docs/add-windowsdriverpackage.md)
+

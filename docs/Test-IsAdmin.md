@@ -39,6 +39,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -53,4 +55,6 @@ Also see http://stackoverflow.com/questions/9999963/powershell-test-admin-rights
 ## RELATED LINKS
 
 [Test-IsInteractiveUser]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/test-isadmin.md](https://github.com/pauby/oxygen/blob/master/docs/test-isadmin.md)
 

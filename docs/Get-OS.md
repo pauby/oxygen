@@ -69,6 +69,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [hashtable]
@@ -81,4 +83,6 @@ History : 1.0 - 20/04/18 - Initial release
 ## RELATED LINKS
 
 [Test-IsNonInteractiveShell]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/get-os.md](https://github.com/pauby/oxygen/blob/master/docs/get-os.md)
 

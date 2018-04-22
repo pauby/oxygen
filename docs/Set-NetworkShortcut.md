@@ -152,7 +152,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### [String]
+### None
 
 ## OUTPUTS
 
@@ -166,4 +166,6 @@ History : 1.0 - 20/04/18 - Initial release
 ## RELATED LINKS
 
 [Set-Shortcut]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/set-networkshortcut.md](https://github.com/pauby/oxygen/blob/master/docs/set-networkshortcut.md)
 

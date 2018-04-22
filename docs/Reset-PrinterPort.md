@@ -100,6 +100,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### [boolean]
@@ -126,4 +128,6 @@ History : v1.0 - 20/04/18 - Initial
 [Test-PrinterDriverStore]()
 
 [Test-PrinterPort]()
+
+[https://github.com/pauby/oxygen/blob/master/docs/reset-printerport.md](https://github.com/pauby/oxygen/blob/master/docs/reset-printerport.md)
 

@@ -82,7 +82,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
+
+### None
 
 ## NOTES
 Author  : Paul Broadwith (https://github.com/pauby)
@@ -90,3 +94,6 @@ Project : Oxygen (https://github.com/pauby/oxygen)
 History : 1.0 - 20/04/18 - Initial release
 
 ## RELATED LINKS
+
+[https://github.com/pauby/oxygen/blob/master/docs/import-registry.md](https://github.com/pauby/oxygen/blob/master/docs/import-registry.md)
+
