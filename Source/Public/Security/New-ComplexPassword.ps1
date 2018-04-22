@@ -38,25 +38,25 @@ function New-ComplexPassword {
         History : v1.0 - 20/04/18 - Initial
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'No state is being changed')]
+    [CmdletBinding()]
     [OutputType([string])]
     Param (
         # Length of the password to generate. By default this is 12.
         [ValidateRange(1, 999)]
-        [Int]$Length = 12,
+        [Int]
+        $Length = 12,
 
         # Characters to not include in the password. For example you may to
         # choose to exclude '0' (zero) as it is visually close to 'O' (capital
         # oh)
-        [Char[]]$Exclude,
+        [Char[]]
+        $Exclude,
 
         # Create the password using these options. Valid values are Upper, Lower, Number and Symbol.
-        [ComplexityOptions[]]$Complexity = @(
-            [ComplexityOptions]::Upper,
-            [ComplexityOptions]::Lower,
-            [ComplexityOptions]::Number,
-            [ComplexityOptions]::Symbol
-        )
+        [ComplexityOptions[]]
+        $Complexity = @( [ComplexityOptions]::Upper, [ComplexityOptions]::Lower, [ComplexityOptions]::Number, [ComplexityOptions]::Symbol )
     )
+    #! keep the Complexity default values all on one line or an error is generated when creating the external help file
 
     # initialise the pool of characters to create password from
     $pool = ''
