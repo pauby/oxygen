@@ -8,6 +8,8 @@ function Enable-WindowsPageFile {
         Enable-WindowsPageFile
 
         Enables the Windows page file on the local computer.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -18,6 +20,8 @@ function Enable-WindowsPageFile {
         Disable-PageFile
     .LINK
         Remove-PageFile
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/enable-windowspagefile.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]

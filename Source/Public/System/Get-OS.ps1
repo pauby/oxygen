@@ -22,6 +22,8 @@ function Get-OS {
         Get-OS
 
         Returns information about the operating system.
+    .INPUTS
+        None
     .OUTPUTS
         [hashtable]
     .NOTES
@@ -30,6 +32,8 @@ function Get-OS {
         History : 1.0 - 20/04/18 - Initial release
     .LINK
         Test-IsNonInteractiveShell
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/get-os.md
     #>
     [CmdletBinding()]
     [OutputType([hashtable])]

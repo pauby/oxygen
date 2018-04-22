@@ -13,12 +13,16 @@ function Set-UAC {
         Set-UAC -Disable
 
         Disables UAC on the local computer.
+    .INPUTS
+        None
     .OUTPUTS
         [PSCustomObject]
     .NOTES
         Author  : Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://github.com/pauby/oxygen)
         History : 1.0 - 21/04/18 - Initial release
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/set-uac.md
     #>
 
     [OutputType([PSCustomObject])]

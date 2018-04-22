@@ -7,6 +7,10 @@ function Set-WindowsRegion {
         Control Panel -> Regional Settings
 
         This function is basically a wrapper around rundll32.exe.
+    .INPUTS
+        None
+    .OUTPUTS
+        None
     .NOTES
         Author  : Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://github.com/pauby/oxygen)
@@ -15,6 +19,8 @@ function Set-WindowsRegion {
         Set-Region -Path c:\temp\region-uk.xml
 
         Sets the regional settings to that contained in c:\temp\region-uk.xml
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/set-windowsregion.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     Param (

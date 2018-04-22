@@ -2,15 +2,16 @@ function Add-Acl {
     <#
     .SYNOPSIS
     Set an ace on an object.
-
     .DESCRIPTION
     Set an ace, created using New-Acl, on an object.
-
+    .INPUTS
+        None
+    .OUTPUTS
+        System.Security.AccessControl.FileSecurity
     .EXAMPLE
     Add-Acl -Path 'C:\Windows\Notepad.exe' -AceObject $aceObj
 
     Adds the access control entry object, $aceObj created using New-Acl, to 'C:\Windows\Notepad.exe'
-
     .NOTES
     Author  : Paul Broadwith (https://github.com/pauby)
     Project : Oxygen (https://github.com/pauby/oxygen)

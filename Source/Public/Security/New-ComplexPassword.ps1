@@ -15,6 +15,8 @@ function New-ComplexPassword {
     .DESCRIPTION
         Creates a complex password using one or more of upper case, lower case,
         numbers and symbols.
+    .INPUTS
+        None
     .OUTPUTS
         [string]
     .EXAMPLE
@@ -36,6 +38,8 @@ function New-ComplexPassword {
         Author  : Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://github.com/pauby/oxygen)
         History : v1.0 - 20/04/18 - Initial
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/new-complexpassword.md
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'No state is being changed')]
     [CmdletBinding()]

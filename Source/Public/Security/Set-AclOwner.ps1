@@ -3,7 +3,11 @@ function Set-AclOwner {
     .SYNOPSIS
         Set the owner of an object.
     .DESCRIPTION
-        Sets the owner of an object. This is related to the 'Acl' group of cmdlets, hence the name. 
+        Sets the owner of an object. This is related to the 'Acl' group of cmdlets, hence the name.
+    .INPUTS
+        None
+    .OUTPUTS
+        System.Security.AccessControl.FileSecurity
     .EXAMPLE
         Set-AclOwner -Path c:\myfile.txt -SamAccountName 'chewie'
 
@@ -16,6 +20,8 @@ function Set-AclOwner {
         Add-Acl
     .LINK
         New-AclObject
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/set-aclowner.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     Param (

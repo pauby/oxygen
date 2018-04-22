@@ -14,6 +14,8 @@ function Test-IsAccountEmptyPassword {
 
         Tests if the 'Administrator' account on'server01' has an empty / blank 
         password.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -22,6 +24,8 @@ function Test-IsAccountEmptyPassword {
         History : 1.0 - 20/04/18 - Initial release
     .LINK
         Test-IsAdmin
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-isaccountemptypassword.md
     #>
     [CmdletBinding()]
     [OutputType([boolean])]

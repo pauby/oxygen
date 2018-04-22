@@ -8,6 +8,8 @@ function Test-IsInteractiveUser {
         Test-IsInteractiveUser
 
         Return $true if the current user is interactive, $false otherwise.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -16,6 +18,8 @@ function Test-IsInteractiveUser {
         History : 1.0 - 21/04/18 - Initial release
     .LINK
         Test-IsAdmin
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-isinteractiveuser.md
     #>
 
     [CmdletBinding()]

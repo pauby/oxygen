@@ -14,7 +14,7 @@ function Set-NetworkShortcut {
 
         Creates a network shortcut called 'MyShare' pointing to '\\myserver\share' with icon number 304.
     .INPUTS
-        [String]
+        None
     .OUTPUTS
         [PSObject]
     .NOTES
@@ -23,6 +23,8 @@ function Set-NetworkShortcut {
         History : 1.0 - 20/04/18 - Initial release
     .LINK
         Set-Shortcut
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/set-networkshortcut.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     Param (

@@ -11,6 +11,8 @@ function Add-WindowsDriverPackage {
         The functions' return value is dependent on the errorlevel from 
         pnputil.exe. If the errorlevel is 0 then this indicates successfully
         and true is returned, otherwise false is returned.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -25,6 +27,8 @@ function Add-WindowsDriverPackage {
         Add-WindowsDriverPackage -Path c:\drivers\*.inf -Install
         
         Adds and installs all *.inf driver packages from c:\drivers
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/add-windowsdriverpackage.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]

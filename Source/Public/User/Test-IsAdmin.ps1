@@ -7,6 +7,8 @@ function Test-IsAdmin {
 
         Returns true if the current session has elevated privileges and false
         otherwise.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .EXAMPLE
@@ -21,6 +23,8 @@ function Test-IsAdmin {
         Also see http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
     .LINK
         Test-IsInteractiveUser
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-isadmin.md
     #>
     [CmdletBinding()]
     [OutputType([boolean])]

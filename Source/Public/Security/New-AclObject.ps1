@@ -4,6 +4,10 @@ function New-AclObject {
         Creates a new ACL object.
     .DESCRIPTION
         Creates a new ACL object for use with module -Acl* functions.
+    .INPUTS
+        None
+    .OUTPUTS
+        System.Security.Principal.NTAccount
     .EXAMPLE
         New-AclObject -SamAccountName 'testuser' -Permission 'Modify'
 
@@ -18,6 +22,8 @@ function New-AclObject {
         Add-Acl
     .LINK
         Set-Owner
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/new-aclobject.md
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'No state is being changed')]
     Param (

@@ -1,33 +1,37 @@
 function Test-PrinterDriver
 {
-<#
-.SYNOPSIS
-    Tests if the printer driver is present on the system.
-.DESCRIPTION
-    Tests if the printer driver is present on the system.
-.NOTES
-    Author  : Paul Broadwith (https://github.com/pauby)
-    Project : Oxygen (https://www.github.com/pauby/oxygen)
-    History : v1.0 - 20/04/18 - Initial
-.OUTPUTS
-    [boolean]
-.EXAMPLE
-    Test-PrinterDriver "HP LaserJet 4"
+    <#
+    .SYNOPSIS
+        Tests if the printer driver is present on the system.
+    .DESCRIPTION
+        Tests if the printer driver is present on the system.
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://www.github.com/pauby/oxygen)
+        History : v1.0 - 20/04/18 - Initial
+    .INPUTS
+        None
+    .OUTPUTS
+        [boolean]
+    .EXAMPLE
+        Test-PrinterDriver "HP LaserJet 4"
 
-    This would test if the printer driver 'HP LaserJet 4' was installed.
-.LINK
-    Reset-Printer
-.LINK
-    Reset-PrinterDriver
-.LINK
-    Reset-PrinterPort
-.LINK
-    Test-Printer
-.LINK
-    Test-PrinterDriverStore
-.LINK
-    Test-PrinterPort
-#>
+        This would test if the printer driver 'HP LaserJet 4' was installed.
+    .LINK
+        Reset-Printer
+    .LINK
+        Reset-PrinterDriver
+    .LINK
+        Reset-PrinterPort
+    .LINK
+        Test-Printer
+    .LINK
+        Test-PrinterDriverStore
+    .LINK
+        Test-PrinterPort
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-printerdriver.md
+    #>
     [CmdletBinding()]
     [OutputType([boolean])]
     Param (

@@ -1,33 +1,37 @@
 function Reset-PrinterDriver
 {
-<#
-.SYNOPSIS
-    Reset the specified printer driver.
-.DESCRIPTION
-    Reset the specified printer driver by removing it and adding it back again.
-.NOTES
-    Author  : Paul Broadwith (https://github.com/pauby)
-    Project : Oxygen (https://github.com/pauby/oxygen)
-    History : v1.0 - 20 April 2018
-.OUTPUTS
-    [boolean]
-.EXAMPLE
-    Reset-PrinterDriver -Name "HP LaserJet PS"
+    <#
+    .SYNOPSIS
+        Reset the specified printer driver.
+    .DESCRIPTION
+        Reset the specified printer driver by removing it and adding it back again.
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
+        History : v1.0 - 20 April 2018
+    .INPUTS
+        None
+    .OUTPUTS
+        [boolean]
+    .EXAMPLE
+        Reset-PrinterDriver -Name "HP LaserJet PS"
 
-    Remove and add the printer driver called "HP LaserJet PS"
-.LINK
-    Reset-Printer
-.LINK
-    Reset-PrinterPort
-.LINK
-    Test-Printer
-.LINK
-    Test-PrinterDriver
-.LINK
-    Test-PrinterDriverStore
-.LINK
-    Test-PrinterPort
-#>
+        Remove and add the printer driver called "HP LaserJet PS"
+    .LINK
+        Reset-Printer
+    .LINK
+        Reset-PrinterPort
+    .LINK
+        Test-Printer
+    .LINK
+        Test-PrinterDriver
+    .LINK
+        Test-PrinterDriverStore
+    .LINK
+        Test-PrinterPort
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/reset-printerdriver.md
+    #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]
     Param

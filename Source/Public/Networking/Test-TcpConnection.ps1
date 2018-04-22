@@ -17,12 +17,16 @@ Function Test-TcpConnection {
 
         Tests if a connection can be established to ports 80 and 443 on server01
         and server02.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
         Author  : Unknown - Refactored by Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://github.com/pauby/oxygen)
         History : 1.0 - 21/04/18 - Initial release
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-tcpconnection.md
     #>
     [CmdletBinding()]
     [OutputType([boolean])]

@@ -8,6 +8,8 @@ function Remove-WindowsPageFile {
         Remove-PageFile
 
         Removes the Windows Pagefile on the current computer.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -18,6 +20,8 @@ function Remove-WindowsPageFile {
         Disable-PageFile
     .LINK
         Enable-PageFile
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/remove-windowspagefile.md
     #>
 
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]

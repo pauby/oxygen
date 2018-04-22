@@ -1,35 +1,39 @@
 function Reset-PrinterPort
 {
-<#
-.SYNOPSIS
-    Resets the printer port.
-.DESCRIPTION
-    Resets the printer port configuration by removing then adding it with the new one.
+    <#
+    .SYNOPSIS
+        Resets the printer port.
+    .DESCRIPTION
+        Resets the printer port configuration by removing then adding it with the new one.
 
-    You do not need administrator privileges to use Reset-PrinterPort
-.NOTES
-    Author  : Paul Broadwith (https://github.com/pauby)
-    Project : Oxygen https://www.github.com/pauby/oxygen
-    History : v1.0 - 20/04/18 - Initial
-.OUTPUTS
-    [boolean]
-.EXAMPLE]
-    Reset-PrinterPort -PortName "HPLJ" -PrinterHostAddress "192.168.10.100"
+        You do not need administrator privileges to use Reset-PrinterPort
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen https://www.github.com/pauby/oxygen
+        History : v1.0 - 20/04/18 - Initial
+    .INPUTS
+        None
+    .OUTPUTS
+        [boolean]
+    .EXAMPLE]
+        Reset-PrinterPort -PortName "HPLJ" -PrinterHostAddress "192.168.10.100"
 
-    Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100
-.LINK
-    Reset-Printer
-.LINK
-    Reset-PrinterDriver
-.LINK
-    Test-Printer
-.LINK
-    Test-PrinterDriver
-.LINK
-    Test-PrinterDriverStore
-.LINK
-    Test-PrinterPort
-#>
+        Removes the printer port called HPLJ and adds it back again with the same name and IP host address of 192.168.10.100
+    .LINK
+        Reset-Printer
+    .LINK
+        Reset-PrinterDriver
+    .LINK
+        Test-Printer
+    .LINK
+        Test-PrinterDriver
+    .LINK
+        Test-PrinterDriverStore
+    .LINK
+        Test-PrinterPort
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/reset-printerport.md
+    #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]
     Param (

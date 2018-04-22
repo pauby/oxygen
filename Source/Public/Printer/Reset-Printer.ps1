@@ -1,33 +1,37 @@
 function Reset-Printer {
-<#
-.SYNOPSIS
-    Reset the specified printer on the local computer.
-.DESCRIPTION
-    Reset the specified printer on the local computer by removing the printer,
-    driver and port and adding them back.
-.NOTES
-    Author  : Paul Broadwith (https://github.com/pauby)
-    Project : Oxygen (https://github.com/pauby/oxygen)
-    History : v1.0 - 20 April 2014
-.OUTPUTS
-    [boolean]
-.EXAMPLE
-    Reset-Printer -Name "HP LaserJet 4" -DriverName "HP LaserJet PS" -PortName "HPLJ4" -PrinterHostAddress "192.168.10.100"
+    <#
+    .SYNOPSIS
+        Reset the specified printer on the local computer.
+    .DESCRIPTION
+        Reset the specified printer on the local computer by removing the printer,
+        driver and port and adding them back.
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
+        History : v1.0 - 20 April 2014
+    .INPUTS
+        None
+    .OUTPUTS
+        [boolean]
+    .EXAMPLE
+        Reset-Printer -Name "HP LaserJet 4" -DriverName "HP LaserJet PS" -PortName "HPLJ4" -PrinterHostAddress "192.168.10.100"
 
-    Resets the printer called "HP LaserJet 4", driver named "HP LaserJet PS", port "HPLJ4" with IP address 192.168.10.100 by removing the port, driver and printer and then adding them back again.
-.LINK
-    Reset-PrinterDriver
-.LINK
-    Reset-PrinterPort
-.LINK
-    Test-Printer
-.LINK
-    Test-PrinterDriver
-.LINK
-    Test-PrinterDriverStore
-.LINK
-    Test-PrinterPort
-#>
+        Resets the printer called "HP LaserJet 4", driver named "HP LaserJet PS", port "HPLJ4" with IP address 192.168.10.100 by removing the port, driver and printer and then adding them back again.
+    .LINK
+        Reset-PrinterDriver
+    .LINK
+        Reset-PrinterPort
+    .LINK
+        Test-Printer
+    .LINK
+        Test-PrinterDriver
+    .LINK
+        Test-PrinterDriverStore
+    .LINK
+        Test-PrinterPort
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/reset-printer.md
+    #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Low')]
     [OutputType([boolean])]
     Param

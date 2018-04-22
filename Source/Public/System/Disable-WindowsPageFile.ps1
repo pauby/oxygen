@@ -8,6 +8,8 @@ function Disable-WindowsPageFile {
         Disable-WindowsPageFile
 
         Disables the Windows page file on the local computer.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -18,6 +20,8 @@ function Disable-WindowsPageFile {
         Enable-PageFile
     .LINK
         Remove-PageFile
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/disable-windowspagefile.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]

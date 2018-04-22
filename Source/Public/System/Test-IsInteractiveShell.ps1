@@ -9,6 +9,8 @@ function Test-IsInteractiveShell {
         would be if the shell is running as a service. If we are running
         interactively, we check the Command Line Arguments to see if the
         `-NonInteractive` switch was used or an abbreviation of the switch.
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .NOTES
@@ -17,6 +19,8 @@ function Test-IsInteractiveShell {
         History : v1.0 - 20/04/18 - Initial
     .LINK
         Get-OS
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-isinteractiveshell.md
     #>
 
     [CmdletBinding()]

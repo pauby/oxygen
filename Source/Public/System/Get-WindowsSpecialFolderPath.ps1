@@ -7,6 +7,8 @@ function Get-WindowsSpecialFolderPath {
         Desktop, etc.
 
         This is a wrapper around [Environment]::GetFolderPath()
+    .INPUTS
+        None
     .OUTPUTS
         [string]
     .NOTES
@@ -17,7 +19,9 @@ function Get-WindowsSpecialFolderPath {
         Get-WindowsSpecialFolderPath -Name "NetworkShortcuts"
 
         Gets the network shortcuts folder path.
-#>
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/get-windowsspecialfolderpath.md
+    #>
     [CmdletBinding()]
     [OutputType([string])]
     Param (

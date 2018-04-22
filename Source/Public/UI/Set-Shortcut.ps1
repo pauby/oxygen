@@ -10,6 +10,8 @@ function Set-Shortcut {
         Author  : Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://www.github.com/pauby/oxygen)
         History : v1.0 - 20/04/18 - Initial
+    .INPUTS
+        None
     .OUTPUTS
         [boolean]
     .EXAMPLE
@@ -18,19 +20,21 @@ function Set-Shortcut {
         Creates a shortcut to c:\windows\system32\notepad.exe on the desktop of the user 'joe'.
     .LINK
         Set-NetworkShortcut
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/set-shortcut.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     [OutputType([boolean])]
     Param (
         # Path to the shortcut file. Should end with '.lnk'. The parent path of this must exist.
         # For example, if the path is c:\windows\system32\notepad.exe then c:\windows\system32 must exist.
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateScript( { Test-Path -Path (Split-Path -Path $_ -Parent) } )]
         [string]
         $Path,
 
         # The destination of the shortcut. This could be an application or a URL.
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
         [string]
         $DestinationUri,

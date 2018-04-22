@@ -1,33 +1,37 @@
 function Test-PrinterDriverStore
 {
-<#
-.SYNOPSIS
-    Test if the specified printer driver exists in the printer driver store.
-.DESCRIPTION
-    Test if the specified printer driver exists in the printer driver store.
-.NOTES
-    Author  : Paul Broadwith (https://github.com/pauby)
-    Project : Oxygen (https://www.github.com/pauby/oxygen)
-    History : v1.0 - 20/04/18 - Initial
-.OUTPUTS
-    [boolean]
-.EXAMPLE
-    Test-PrinterDriverStore -Name "HP LaserJet PS"
+    <#
+    .SYNOPSIS
+        Test if the specified printer driver exists in the printer driver store.
+    .DESCRIPTION
+        Test if the specified printer driver exists in the printer driver store.
+    .NOTES
+        Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://www.github.com/pauby/oxygen)
+        History : v1.0 - 20/04/18 - Initial
+    .INPUTS
+        None
+    .OUTPUTS
+        [boolean]
+    .EXAMPLE
+        Test-PrinterDriverStore -Name "HP LaserJet PS"
 
-    Tests if the printer driver named "HP LaserJet PS" exists in the printer driver store.
-.LINK
-    Reset-Printer
-.LINK
-    Reset-PrinterDriver
-.LINK
-    Reset-PrinterPort
-.LINK
-    Test-Printer
-.LINK
-    Test-PrinterDriver
-.LINK
-    Test-PrinterPort
-#>
+        Tests if the printer driver named "HP LaserJet PS" exists in the printer driver store.
+    .LINK
+        Reset-Printer
+    .LINK
+        Reset-PrinterDriver
+    .LINK
+        Reset-PrinterPort
+    .LINK
+        Test-Printer
+    .LINK
+        Test-PrinterDriver
+    .LINK
+        Test-PrinterPort
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/test-printerdriverstore.md
+    #>
     [CmdletBinding()]
     [OutputType([boolean])]
     Param (

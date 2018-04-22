@@ -4,6 +4,10 @@ function Import-Registry {
         This is just a wrapper around 'regedit /s'
     .DESCRIPTION
         This is just a wrapper around 'regedit /s'
+    .INPUTS
+        None
+    .OUTPUTS
+        None
     .EXAMPLE
         Import-Registry -Path 'mychanges.reg'
 
@@ -12,6 +16,8 @@ function Import-Registry {
         Author  : Paul Broadwith (https://github.com/pauby)
         Project : Oxygen (https://github.com/pauby/oxygen)
         History : 1.0 - 20/04/18 - Initial release
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/import-registry.md
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     Param (
