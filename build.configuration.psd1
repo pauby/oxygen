@@ -29,4 +29,8 @@
     ModuleScript = @{
         Header = "Set-StrictMode -Version Latest"
     }
+
+    Help = @{
+        DocUri     = 'https://github.com/pauby/oxygen/blob/master/docs'
+    }
 }
