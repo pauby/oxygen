@@ -21,6 +21,8 @@ function Add-Acl {
         New-AclObject
     .LINK
         Set-Owner
+    .LINK
+        https://github.com/pauby/oxygen/blob/master/docs/add-acl.md
     #>
     [CmdletBinding()]
     Param (
