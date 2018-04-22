@@ -1,26 +1,21 @@
 function Test-IsInteractiveUser {
     <#
     .SYNOPSIS
-        Brief synopsis about the function.
+        Tests if the current user is interactive.
     .DESCRIPTION
-        Detailed explanation of the purpose of this function.
-    .PARAMETER Param1
-        The purpose of param1.
-    .PARAMETER Param2
-        The purpose of param2.
+        Tests if the current user is interactive.
     .EXAMPLE
-        <FUNCTION> -Param1 'Value1', 'Value2'
-    .EXAMPLE
-        'Value1', 'Value2' | <FUNCTION>
-    .INPUTS
-        [String]
+        Test-IsInteractiveUser
+
+        Return $true if the current user is interactive, $false otherwise.
     .OUTPUTS
-        [PSObject]
+        [boolean]
     .NOTES
         Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
         History : 1.0 - 21/04/18 - Initial release
     .LINK
-        Related things
+        Test-IsAdmin
     #>
 
     [CmdletBinding()]

@@ -1,24 +1,27 @@
 function Add-Acl {
-<#
-.SYNOPSIS
-Set an ace on an object.
+    <#
+    .SYNOPSIS
+    Set an ace on an object.
 
-.DESCRIPTION
-Set an ace, created using New-Acl, on an object.
+    .DESCRIPTION
+    Set an ace, created using New-Acl, on an object.
 
-.EXAMPLE
-Add-Acl -Path 'C:\Windows\Notepad.exe' -AceObject $aceObj
+    .EXAMPLE
+    Add-Acl -Path 'C:\Windows\Notepad.exe' -AceObject $aceObj
 
-Adds the access control entry object, $aceObj created using New-Acl, to 'C:\Windows\Notepad.exe'
+    Adds the access control entry object, $aceObj created using New-Acl, to 'C:\Windows\Notepad.exe'
 
-.NOTES
-Author  : Paul Broadwith (https://github.com/pauby)
+    .NOTES
+    Author  : Paul Broadwith (https://github.com/pauby)
+    Project : Oxygen (https://github.com/pauby/oxygen)
+    History : v1.0 - 22/04/18 - Initial
 
-Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
-
-.LINK
-https://github.com/pauby/oxygen
-#>
+    Code was created using https://technet.microsoft.com/en-us/library/ff730951.aspx as a basis.
+    .LINK
+        New-AclObject
+    .LINK
+        Set-Owner
+    #>
     [CmdletBinding()]
     Param (
         # Path to the object to set the acl on.

@@ -1,30 +1,28 @@
 function Set-UAC {
     <#
     .SYNOPSIS
-        Brief synopsis about the function.
+        Enables or disables UAC.
     .DESCRIPTION
-        Detailed explanation of the purpose of this function.
-    .PARAMETER Param1
-        The purpose of param1.
-    .PARAMETER Param2
-        The purpose of param2.
+        Enables or disables UAC by change the EnableLUA key in the registry at
+        HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System.
     .EXAMPLE
-        <FUNCTION> -Param1 'Value1', 'Value2'
+        Set-UAC -Enable
+
+        Enables UAC on the local computer.
     .EXAMPLE
-        'Value1', 'Value2' | <FUNCTION>
-    .INPUTS
-        [String]
+        Set-UAC -Disable
+
+        Disables UAC on the local computer.
     .OUTPUTS
-        [PSObject]
+        [PSCustomObject]
     .NOTES
         Author  : Paul Broadwith (https://github.com/pauby)
+        Project : Oxygen (https://github.com/pauby/oxygen)
         History : 1.0 - 21/04/18 - Initial release
-    .LINK
-        Related things
     #>
 
     [OutputType([PSCustomObject])]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     Param(
         [Parameter(ParameterSetName = 'Enable')]
         [switch]
@@ -37,12 +35,17 @@ function Set-UAC {
 
     if ($Enable) {
         Write-Verbose "Enabling UAC."
+        $action = 'Disabling'
         $state = 1
     }
     else {
         Write-Verbose "Disabling UAC."
+        $action = 'Enabling'
         $state = 0
     }
 
-    New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name 'EnableLUA' -Value $state -PropertyType 'DWord' -Force
+    if ($PSCmdlet.ShouldProcess('UAC', $action)) {
+        New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" `
+            -Name 'EnableLUA' -Value $state -PropertyType 'DWord' -Force
+    }
 }

@@ -20,7 +20,7 @@ function Test-IsAdmin {
 
         Also see http://stackoverflow.com/questions/9999963/powershell-test-admin-rights-within-powershell-script
     .LINK
-        Test-IsAccountEmptyPassword
+        Test-IsInteractiveUser
     #>
     [CmdletBinding()]
     [OutputType([boolean])]

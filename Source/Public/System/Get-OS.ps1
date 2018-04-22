@@ -22,8 +22,6 @@ function Get-OS {
         Get-OS
 
         Returns information about the operating system.
-    .EXAMPLE
-        'Value1', 'Value2' | <FUNCTION>
     .OUTPUTS
         [hashtable]
     .NOTES
