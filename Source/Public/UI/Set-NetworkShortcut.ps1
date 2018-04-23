@@ -64,7 +64,7 @@ function Set-NetworkShortcut {
     if ($Force.IsPresent -and (Test-Path -Path $shortcutFullPath)) {
         if ($PSCmdlet.ShouldProcess($shortcutFullPath, 'Removing network shortcut')) {
             Write-Verbose "Deleting network shortcut '$shortcutFullPath' as '-Force' parameter provided."
-            Remove-Item -Path $shortcutFullPath -Force
+            Remove-Item -Path $shortcutFullPath -Force -Recurse
         }
     }
 
